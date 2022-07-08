@@ -1,13 +1,14 @@
-import Header from "../elements/Header";
-import Banner from "../elements/Banner";
-import SignUp from "../elements/ChoosePlan";
-import styled from "styled-components";
+import Header from "../utils/Header";
+import Banner from "../utils/Banner";
+import SignUpModal from "../utils/Modals/SignUpModal/SignUpModal";
 
 export default function HomePage() {
+
     return (
         <>
             <Header />
-            <SignUp />
+            <Banner />
+            <SignUpModal />
             <h1>Essa é a página principal</h1>
         </>
     );

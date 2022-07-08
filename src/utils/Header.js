@@ -5,7 +5,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import ChoosePlan from "./ChoosePlan"
+import ChoosePlan from "./Modals/SignUpModal/SignUpModal"
 
 export default function Header() {
     const [lgShow, setLgShow] = useState(false);

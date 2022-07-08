@@ -45,10 +45,10 @@ table {
 body{
 	font-family: "Quicksand", sans-serif;
 
-	.teste{
+	.modal{
 		
 		*{
-			gap:15px
+			gap:10px
 		}
 	}
 }

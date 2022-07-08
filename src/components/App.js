@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "../globalStyles/reset";
+
 import { UserContextProvider } from "../contexts/UserContext";
 
 import HomePage from "./HomePage";
@@ -16,5 +17,6 @@ export default function App() {
                 </Routes>
             </BrowserRouter>
         </UserContextProvider>
+
     );
 }

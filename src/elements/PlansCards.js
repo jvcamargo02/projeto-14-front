@@ -11,7 +11,8 @@ export default function PlansCards({ card, etapa, setEtapa}) {
             setCardBorderColor(!cardBorderColor);
             setCardBgColor(!cardBgColor);
             setCardTextColor(!cardTextColor);
-            setEtapa(etapa + 1)
+            setTimeout(() => setEtapa(etapa + 1), 500)
+            
         }
 
     return (

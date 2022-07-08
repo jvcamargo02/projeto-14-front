@@ -1,8 +1,8 @@
 import { useState } from "react";
+import styled from "styled-components";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from "react-bootstrap/Modal";
-
 import CardGroup from "react-bootstrap/CardGroup";
 import PlansCards from "./PlansCards";
 
@@ -39,28 +39,7 @@ export default function PlansModal({ lgShow, setLgShow }) {
         {
             title: "Sign up",
             type: "Form",
-            body: [
-                {
-                    cardName: "Bimonthly",
-                    cardImg:
-                        "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
-                    cardContent: "Quem escolher esse vira sócio",
-                },
-                {
-                    cardName: "Monthly",
-                    cardImg:
-                        "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
-                    cardContent:
-                        "Cafézin toda semana na sua porta por um mês todin",
-                },
-                {
-                    cardName: "Weekly",
-                    cardImg:
-                        "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
-                    cardContent:
-                        "Investe mais ai e pega o mensal pow. 1 semaninha de café vai passar sede",
-                },
-            ],
+            
         },
     ];
 
@@ -83,6 +62,10 @@ export default function PlansModal({ lgShow, setLgShow }) {
         if (etapa === 1) {
             return (
                 <Form>
+                    <Form.Group className="mb-3" controlId="formBasicName">
+                        <Form.Label>Name</Form.Label>
+                        <Form.Control type="text" id="name" placeholder="Enter name" />
+                    </Form.Group>
                     <Form.Group className="mb-3" controlId="formBasicEmail">
                         <Form.Label>Email address</Form.Label>
                         <Form.Control type="email" placeholder="Enter email" />
@@ -95,9 +78,14 @@ export default function PlansModal({ lgShow, setLgShow }) {
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">
                         <Form.Check type="checkbox" label="Check me out" />
                     </Form.Group>
-                    <Button variant="primary" type="submit">
+                    <Buttons>
+                    <Button variant="light" onClick={() => setEtapa(0)}>
+                        Go Back
+                    </Button>
+                    <Button variant="dark" onClick={() => setEtapa(2)}>
                         Submit
                     </Button>
+                    </Buttons>
                 </Form>
             );
         }
@@ -120,3 +108,10 @@ export default function PlansModal({ lgShow, setLgShow }) {
         </>
     );
 }
+
+
+const Buttons = styled.div`
+
+    display: flex;
+    justify-content: space-between;
+`

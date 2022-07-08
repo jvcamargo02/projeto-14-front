@@ -1,12 +1,41 @@
 import axios from "axios";
 import styled from "styled-components";
-import { useContext, useState } from "react";
-import { Button, Card, Col } from "react-bootstrap";
+import { useContext, useEffect, useState } from "react";
+import { Button, Container, Card, Col, Row } from "react-bootstrap";
 import { ImCheckmark2 } from "react-icons/im";
 
 import UserContext from "../contexts/UserContext";
 
-export default function Product(props) {
+export default function ProductsList() {
+    const { token } = useContext(UserContext);
+
+    const [productsList, setProductsList] = useState([]);
+
+    useEffect(() => {
+        const API_BASE_URL =
+            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const promise = axios.get(`${API_BASE_URL}/products`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        promise.then((res) => {
+            setProductsList(res.data);
+        });
+    }, []);
+
+    return (
+        <div className="album py-5 bg-light">
+            <Container>
+                <Row sm={2} lg={4} className={"row-cols-1 g-3"}>
+                    {productsList.map((product) => {
+                        return <Product key={product._id} product={product} />;
+                    })}
+                </Row>
+            </Container>
+        </div>
+    );
+}
+
+function Product(props) {
     const { product } = props;
     const { token } = useContext(UserContext);
 
@@ -17,12 +46,10 @@ export default function Product(props) {
             process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
         if (active) {
-            console.log(`${API_BASE_URL}/shopping-cart/${product._id}`);
             axios.delete(`${API_BASE_URL}/shopping-cart/${product._id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
         } else {
-            console.log(`${API_BASE_URL}/shopping-cart`);
             axios.post(
                 `${API_BASE_URL}/shopping-cart`,
                 { productId: product._id },

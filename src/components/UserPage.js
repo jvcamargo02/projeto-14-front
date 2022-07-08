@@ -1,30 +1,13 @@
-import axios from "axios";
 import styled from "styled-components";
-import { useContext, useEffect, useState } from "react";
-import { Container, Row } from "react-bootstrap";
+import { useState } from "react";
 import { BiUserCircle } from "react-icons/bi";
 import { TiShoppingCart } from "react-icons/ti";
 
-import UserContext from "../contexts/UserContext";
-import Product from "../elements/Product";
+import ProductsList from "../elements/Products";
 import ShoppingCart from "../elements/ShoppingCart";
 
 export default function UserPage() {
-    const { token } = useContext(UserContext);
-
-    const [productsList, setProductsList] = useState([1, 1, 1, 1, 1]);
     const [isModalVisible, setIsModalVisible] = useState(false);
-
-    useEffect(() => {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-        const promise = axios.get(`${API_BASE_URL}/products`, {
-            headers: { Authorization: `Bearer ${token}` }
-        });
-        promise.then((res) => {
-            setProductsList(res.data);
-        });
-    }, []);
 
     return (
         <>
@@ -37,15 +20,7 @@ export default function UserPage() {
             {isModalVisible && (
                 <ShoppingCart setIsModalVisible={setIsModalVisible} />
             )}
-            <div className="album py-5 bg-light">
-                <Container>
-                    <Row sm={2} lg={4} className={"row-cols-1 g-3"}>
-                        {productsList.map((product) => (
-                            <Product key={product._id} product={product} />
-                        ))}
-                    </Row>
-                </Container>
-            </div>
+            <ProductsList />
         </>
     );
 }

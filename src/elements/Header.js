@@ -5,8 +5,10 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
+import ChoosePlan from "./ChoosePlan"
 
 export default function Header() {
+    const [lgShow, setLgShow] = useState(false);
     const [toggle, setToggle] = useState(false);
 
     return (
@@ -18,7 +20,7 @@ export default function Header() {
                 <Navbar>
                     <span>Our plans</span>
                     <span>How it works</span>
-                    <span>Sign up</span>
+                    <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span>Login</span>
                 </Navbar>
             </DesktopMain>
@@ -32,7 +34,7 @@ export default function Header() {
                     <img src={logoImg} alt="Logo" />
                     <span>Our plans</span>
                     <span>How it works</span>
-                    <span>Sign up</span>
+                    <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span>Login</span>
                     <hr />
                     <p>Follow us</p>
@@ -44,6 +46,7 @@ export default function Header() {
                     </social-media>
                 </main>
             </MobileMain>
+            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow}/>
         </>
     );
 }

@@ -44,6 +44,13 @@ table {
 
 body{
 	font-family: "Quicksand", sans-serif;
+
+	.teste{
+		
+		*{
+			gap:15px
+		}
+	}
 }
 `;
 

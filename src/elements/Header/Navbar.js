@@ -1,16 +1,41 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
-import logoImg from "../assets/logo.png";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
+import ChoosePlan from "../Modals/SignUpModal/SignUpModal";
+import LoginModal from "../Modals/LoginModal/LoginModal";
+import logoImg from "../../assets/logo.png";
+import UserContext from "../../contexts/UserContext";
 
-export default function Header() {
+export default function Navbar() {
     const navigate = useNavigate();
-
+    const userDataString = localStorage.getItem("userCredentials");
+    const { setToken } = useContext(UserContext);
+    const [lgShow, setLgShow] = useState(false);
+    const [smShow, setSmShow] = useState(false);
     const [toggle, setToggle] = useState(false);
+
+    function successLoggedUser({ token }) {
+        setToken(token);
+        navigate("/user");
+    }
+
+    function connectedUser() {
+        const credentials = JSON.parse(userDataString);
+
+        if (credentials !== null) {
+            const promisse = axios.post("http://localhost:5000/login", {
+                email: credentials.email,
+                password: credentials.password,
+            });
+            promisse.then((response) => successLoggedUser(response.data));
+            promisse.catch(() => setSmShow(true));
+        }
+    }
 
     return (
         <>
@@ -18,12 +43,14 @@ export default function Header() {
                 <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
-                <Navbar>
+                <NavbarDesktop>
                     <span>Our plans</span>
-                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
-                    <span>Sign up</span>
-                    <span>Login</span>
-                </Navbar>
+                    <span onClick={() => navigate("/how-it-works")}>
+                        How it works
+                    </span>
+                    <span onClick={() => setLgShow(true)}>Sign up</span>
+                    <span onClick={() => connectedUser()}>Login</span>
+                </NavbarDesktop>
             </DesktopMain>
 
             <MobileMain display={toggle}>
@@ -34,10 +61,11 @@ export default function Header() {
                 <main>
                     <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                     <span>Our plans</span>
-                    <span>How it works</span>
-                    <span>Sign up</span>
-                    <span>Login</span>
-                    <hr />
+                    <span onClick={() => navigate("/how-it-works")}>
+                        How it works
+                    </span>
+                    <span onClick={() => setLgShow(true)}>Sign up</span>
+                    <span onClick={() => setSmShow(true)}>Login</span>
                     <p>Follow us</p>
                     <social-media>
                         <BsFacebook />
@@ -47,18 +75,28 @@ export default function Header() {
                     </social-media>
                 </main>
             </MobileMain>
+            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow} />
+            <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );
 }
 
 const DesktopMain = styled.div`
     height: 60px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #000;
     box-sizing: border-box;
+    position: fixed;
+    z-index: 1;
     padding: 0 40px;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 0.3) 0%,
+        rgba(255, 255, 255, 0) 100%
+    );
     color: #fff;
 
     img {
@@ -70,6 +108,7 @@ const DesktopMain = styled.div`
     span,
     svg {
         cursor: pointer;
+        font-weight: 600;
     }
 
     svg {
@@ -83,7 +122,7 @@ const DesktopMain = styled.div`
     }
 `;
 
-const Navbar = styled.div`
+const NavbarDesktop = styled.div`
     display: flex;
     gap: 30px;
 
@@ -95,8 +134,10 @@ const Navbar = styled.div`
 const MobileMain = styled.div`
     height: 100vh;
     width: 100%;
-    position: absolute;
+    background-color: #000;
+    position: fixed;
     top: 0;
+    z-index: 1;
     color: #fff;
     display: ${(props) => (props.display === false ? "none" : "inherit")};
 
@@ -107,7 +148,6 @@ const MobileMain = styled.div`
     main {
         width: 80%;
         height: 100vh;
-        background-color: #000;
         margin-left: auto;
         display: flex;
         flex-direction: column;
@@ -127,6 +167,7 @@ const MobileMain = styled.div`
             font-size: 20px;
             margin: 5px 0;
             gap: 20px;
+            margin-bottom: 5px;
         }
     }
 

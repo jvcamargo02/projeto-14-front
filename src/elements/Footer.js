@@ -49,9 +49,7 @@ const FooterContainer = styled.div`
     background: linear-gradient(
         0deg,
         rgba(2, 0, 36, 1) 0%,
-        rgba(0, 0, 0, 1) 76%,
-        rgba(42, 42, 42, 1) 85%,
-        rgba(255, 255, 255, 1) 100%
+        rgba(0, 0, 0, 1) 76%
     );
 
     h5 {

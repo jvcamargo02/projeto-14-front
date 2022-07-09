@@ -1,8 +1,9 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import GlobalStyle from "../globalStyles/reset";
-import  'bootstrap/dist/css/bootstrap.min.css'
+import { UserContextProvider } from "../contexts/UserContext";
 import HomePage from "./HomePage";
-import { UserContextProvider } from "../context.js/UserContext";
+import HowItWorksPage from "./HowItWorksPage";
+import UserPage from "./UserPage";
 
 export default function App() {
 
@@ -14,7 +15,9 @@ export default function App() {
 
             <BrowserRouter>
                 <Routes>
-                    <Route path="/" element={<HomePage />}></Route>
+                    <Route path="/" element={<HomePage />} />
+                    <Route path="/how-it-works" element={<HowItWorksPage />} />
+                    <Route path="/user" element={<UserPage />} />
                 </Routes>
             </BrowserRouter>
         </UserContextProvider>

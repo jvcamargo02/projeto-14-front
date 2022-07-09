@@ -42,23 +42,24 @@ table {
 	border-spacing: 0;
 }
 
-body{
-	font-family: "Quicksand", sans-serif;
+* {
+	box-sizing: border-box;
+  font-family: "Quicksand", sans-serif;
 
-	.modal{
+  .modal{
 		
-		*{
-			gap:10px
-		}
+	*{
+		gap:10px;
 	}
+}
 
-	@media (min-width: 576px){
+@media (min-width: 576px){
 
-		.modal-sm {	
-			max-width: 400px;
-		}
-		}
+	.modal-sm {	
+		max-width: 400px;
 	}
-`
+	}
+}
+`;
 
 export default GlobalStyle;

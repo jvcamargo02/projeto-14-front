@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import Header from "../utils/Header/Header";
+import Footer from "../elements/Footer";
 
 export default function HomePage() {
     return (
         <Container>
             <Header />
             <h1>Conteudo do site</h1>
+            <Footer />
         </Container>
     );
 }

@@ -40,7 +40,7 @@ export default function Navbar() {
     return (
         <>
             <DesktopMain>
-                <img src={logoImg} alt="Logo" />
+                <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
                 <NavbarDesktop>
@@ -59,7 +59,7 @@ export default function Navbar() {
                 </background>
 
                 <main>
-                    <img src={logoImg} alt="Logo" />
+                    <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                     <span>Our plans</span>
                     <span onClick={() => navigate("/how-it-works")}>
                         How it works
@@ -102,6 +102,7 @@ const DesktopMain = styled.div`
     img {
         height: 60px;
         filter: invert(100%);
+        cursor: pointer;
     }
 
     span,
@@ -158,6 +159,7 @@ const MobileMain = styled.div`
             height: 80px;
             width: 200px;
             filter: invert(100%);
+            cursor: pointer;
         }
 
         social-media {

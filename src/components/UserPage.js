@@ -17,9 +17,7 @@ export default function UserPage() {
                     <BiUserCircle />
                 </div>
             </Header>
-            {isModalVisible && (
-                <ShoppingCart setIsModalVisible={setIsModalVisible} />
-            )}
+            {isModalVisible && <ShoppingCart setIsModalVisible={setIsModalVisible} />}
             <ProductsList />
         </>
     );

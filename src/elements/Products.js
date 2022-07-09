@@ -12,8 +12,7 @@ export default function ProductsList() {
     const [productsList, setProductsList] = useState([]);
 
     useEffect(() => {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const promise = axios.get(`${API_BASE_URL}/products`, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -42,8 +41,7 @@ function Product(props) {
     const [active, setActive] = useState(false);
 
     function selectProduct() {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
         if (active) {
             axios.delete(`${API_BASE_URL}/shopping-cart/${product._id}`, {
@@ -69,11 +67,7 @@ function Product(props) {
                 <Card.Body>
                     <div>
                         <Card.Title>Card Title</Card.Title>
-                        <Button
-                            variant="outline-success"
-                            active={active}
-                            onClick={selectProduct}
-                        >
+                        <Button variant="outline-success" active={active} onClick={selectProduct}>
                             {active ? <ImCheckmark2 /> : "Add"}
                         </Button>
                     </div>

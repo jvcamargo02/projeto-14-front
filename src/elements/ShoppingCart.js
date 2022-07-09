@@ -14,8 +14,7 @@ export default function ShoppingCart(props) {
     const [limit, setLimit] = useState(0);
 
     useEffect(() => {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const promise = axios.get(`${API_BASE_URL}/shopping-cart`, {
             headers: { Authorization: `Bearer ${token}` }
         });
@@ -64,8 +63,7 @@ function SelectedProduct(props) {
     const [itemCounter, setItemCounter] = useState(counter);
 
     function addProductCounter() {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         axios.put(
             `${API_BASE_URL}/shopping-cart/${product._id}/add`,
             {},
@@ -78,8 +76,7 @@ function SelectedProduct(props) {
     }
 
     function subtractProductCounter() {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         axios.put(
             `${API_BASE_URL}/shopping-cart/${product._id}/subtract`,
             {},

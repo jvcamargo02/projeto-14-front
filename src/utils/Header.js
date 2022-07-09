@@ -1,166 +1,23 @@
-import { useState } from "react";
-import styled from "styled-components";
-import logoImg from "../assets/logo.png";
-import { GiHamburgerMenu } from "react-icons/gi";
-import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
-import { GoMarkGithub } from "react-icons/go";
-import { AiOutlineClose } from "react-icons/ai";
-import ChoosePlan from "./Modals/SignUpModal/SignUpModal"
+import styled from "styled-components"
+import Navbar from "./Navbar";
+import SignUpModal from "./Modals/SignUpModal/SignUpModal";
+import bannerImg from "../assets/banner.gif"
+import Teste from "./teste";
 
 export default function Header() {
-    const [lgShow, setLgShow] = useState(false);
-    const [toggle, setToggle] = useState(false);
-
     return (
-        <>
-            <DesktopMain>
-                <img src={logoImg} alt="Logo" />
-                <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
-
-                <Navbar>
-                    <span>Our plans</span>
-                    <span>How it works</span>
-                    <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span>Login</span>
-                </Navbar>
-            </DesktopMain>
-
-            <MobileMain display={toggle}>
-                <background>
-                    <AiOutlineClose onClick={() => setToggle(!toggle)} />
-                </background>
-
-                <main>
-                    <img src={logoImg} alt="Logo" />
-                    <span>Our plans</span>
-                    <span>How it works</span>
-                    <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span>Login</span>
-                    <hr />
-                    <p>Follow us</p>
-                    <social-media>
-                        <BsFacebook />
-                        <BsInstagram />
-                        <BsTwitter />
-                        <GoMarkGithub />
-                    </social-media>
-                </main>
-            </MobileMain>
-            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow}/>
-        </>
-    );
+    <Container>
+            <Navbar />
+            <SignUpModal />
+            <Teste/>
+    </Container>)
 }
 
-const DesktopMain = styled.div`
-    height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #000;
-    box-sizing: border-box;
-    padding: 0 40px;
-    color: #fff;
-
-    img {
-        height: 60px;
-        filter: invert(100%);
-    }
-
-    span,
-    svg {
-        cursor: pointer;
-    }
-
-    svg {
-        display: none;
-    }
-
-    @media (max-width: 650px) {
-        svg {
-            display: inherit;
-        }
-    }
-`;
-
-const Navbar = styled.div`
-    display: flex;
-    gap: 30px;
-
-    @media (max-width: 650px) {
-        display: none;
-    }
-`;
-
-const MobileMain = styled.div`
-    height: 100vh;
-    width: 100%;
-    position: absolute;
-    top: 0;
-    color: #fff;
-    display: ${(props) => (props.display === false ? "none" : "inherit")};
-
-    hr {
-        width: 100%;
-    }
-
-    main {
-        width: 80%;
-        height: 100vh;
-        background-color: #000;
-        margin-left: auto;
-        display: flex;
-        flex-direction: column;
-        justify-content: space-around;
-        align-items: center;
-        position: relative;
-
-        img {
-            height: 80px;
-            width: 200px;
-            filter: invert(100%);
-        }
-
-        social-media {
-            display: flex;
-            font-size: 20px;
-            margin: 5px 0;
-            gap: 20px;
-        }
-    }
-
-    background {
-        width: 20%;
-        height: 100vh;
-        background-color: rgba(0, 0, 0, 0.7);
-        position: absolute;
-
-        svg {
-            float: right;
-            color: #fff;
-            font-size: 40px;
-            margin-top: 15px;
-            margin-right: 10px;
-            cursor: pointer;
-        }
-    }
-
-    span {
-        width: 100%;
-        line-height: 130px;
-        text-align: center;
-        font-weight: 500;
-        cursor: pointer;
-    }
-
-    span:nth-child(2n) {
-        background-color: #313131;
-    }
-
-    span:last-child {
-        border-radius: 0 0 10px 10px;
-    }
-
-    @media (min-width: 650px) {
-        display: none;
-    }
-`;
+const Container = styled.div`
+    height: 88vh;
+    background-image: url(${bannerImg});
+    position: relative;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+`

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
 import PaymentModal from "./PaymentModal";
@@ -59,8 +59,6 @@ export default function SignUpModal({ lgShow, setLgShow }) {
         </Container>
     );
 }
-
-
 
 const Container = styled.div`
     .modal-content {

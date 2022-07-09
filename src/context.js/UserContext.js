@@ -5,13 +5,13 @@ const UserContext = createContext();
 export function UserContextProvider(props) {
     const { children } = props;
     const [userData, setUserData] = useState({
-        name: "Oba",
+        name: "",
         email: "",
         password: "",
         selectPlanId: '',
         userPaymentData: {
             number: "",
-            name: "",
+            cardName: "",
             expiry: "",
             cvc: "",
         },

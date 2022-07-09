@@ -1,6 +1,9 @@
 import React from "react";
+import axios from "axios";
 import Card from "react-credit-cards";
 import styled from "styled-components";
+import { ToastContainer } from "react-toastify";
+import { advice } from "../../../assets/toastifyFunctions";
 import {
     formatCreditCardNumber,
     formatCVC,
@@ -12,70 +15,93 @@ import UserContext from "../../../context.js/UserContext";
 export default class App extends React.Component {
     static contextType = UserContext;
 
-    state = {
-        number: "",
-        name: "",
-        expiry: "",
-        cvc: "",
-        issuer: "",
-        focused: "",
-        formData: null,
-    };
-
-    handleCallback = ({ issuer }, isValid) => {
-        if (isValid) {
-            this.setState({ issuer });
-        }
-    };
-
-    handleInputFocus = ({ target }) => {
-        this.setState({
-            focused: target.name,
-        });
-    };
-
-    handleInputChange = ({ target }) => {
-        if (target.name === "number") {
-            target.value = formatCreditCardNumber(target.value);
-        } else if (target.name === "expiry") {
-            target.value = formatExpirationDate(target.value);
-        } else if (target.name === "cvc") {
-            target.value = formatCVC(target.value);
-        }
-
-        this.setState({ [target.name]: target.value });
-    };
-
     render() {
-        const { name, number, expiry, cvc, focused, issuer } = this.state;
-
         const { progress, setProgress, setUserData, userData } = this.context;
+
+        let state = {
+            number: userData.userPaymentData.number,
+            name: userData.userPaymentData.cardName,
+            expiry: userData.userPaymentData.expiry,
+            cvc: userData.userPaymentData.cvc,
+            issuer: "",
+            focused: "",
+            formData: null,
+        };
+
+        function handleCallback({ issuer }, isValid) {
+            if (isValid) {
+                state = { ...state, issuer };
+            }
+        }
+
+        function handleInputFocus({ target }) {
+            state = { ...state, focused: target.name };
+        }
+
+        function handleInputChange({ target }) {
+            if (target.name === "number") {
+                target.value = formatCreditCardNumber(target.value);
+                setUserData({
+                    ...userData,
+                    userPaymentData: {
+                        ...userData.userPaymentData,
+                        number: target.value,
+                    },
+                });
+            } else if (target.name === "expiry") {
+                target.value = formatExpirationDate(target.value);
+                setUserData({
+                    ...userData,
+                    userPaymentData: {
+                        ...userData.userPaymentData,
+                        expiry: target.value,
+                    },
+                });
+            } else if (target.name === "cvc") {
+                target.value = formatCVC(target.value);
+                setUserData({
+                    ...userData,
+                    userPaymentData: {
+                        ...userData.userPaymentData,
+                        cvc: target.value,
+                    },
+                });
+            } else if (target.name === "name") {
+                setUserData({
+                    ...userData,
+                    userPaymentData: {
+                        ...userData.userPaymentData,
+                        cardName: target.value,
+                    },
+                });
+            }
+
+            state = { ...state, [target.name]: target.value };
+        }
 
         function handleSubmit(e) {
             e.preventDefault();
-            setUserData({
-                ...userData,
-                userPaymentData: {
-                    number,
-                    name,
-                    expiry,
-                    cvc,
-                },
-            });
-            setProgress(progress + 1);
+
             console.log(userData);
+            const promisse = axios.post(
+                "http://localhost:5000/sign-up",
+                userData
+            );
+
+            promisse.then(() => setProgress(progress + 1));
+            promisse.catch((e) => advice(e.response.data));
         }
 
         return (
             <div key="Payment">
                 <CardBoxes className="App-payment">
                     <Card
-                        number={number}
-                        name={name}
-                        expiry={expiry}
-                        cvc={cvc}
-                        focused={focused}
-                        callback={this.handleCallback}
+                        number={userData.userPaymentData.number}
+                        name={userData.userPaymentData.cardName}
+                        expiry={userData.userPaymentData.expiry}
+                        cvc={userData.userPaymentData.cvc}
+                        focused={state.focused}
+                        callback={handleCallback}
                     />
                     <form
                         ref={(c) => (this.form = c)}
@@ -96,8 +122,9 @@ export default class App extends React.Component {
                                 placeholder="Card Number"
                                 pattern="[\d| ]{16,22}"
                                 required
-                                onChange={this.handleInputChange}
-                                onFocus={this.handleInputFocus}
+                                value={userData.userPaymentData.number}
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
                             />
                         </div>
 
@@ -109,8 +136,9 @@ export default class App extends React.Component {
                                 className="form-control"
                                 placeholder="Name"
                                 required
-                                onChange={this.handleInputChange}
-                                onFocus={this.handleInputFocus}
+                                value={userData.userPaymentData.cardName}
+                                onChange={handleInputChange}
+                                onFocus={handleInputFocus}
                             />
                         </div>
                         <div className="row">
@@ -123,8 +151,9 @@ export default class App extends React.Component {
                                     placeholder="Valid Thru"
                                     pattern="\d\d/\d\d"
                                     required
-                                    onChange={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
+                                    value={userData.userPaymentData.expiry}
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
                                 />
                             </div>
                             <div className="col-6">
@@ -136,12 +165,17 @@ export default class App extends React.Component {
                                     placeholder="CVC"
                                     pattern="\d{3,4}"
                                     required
-                                    onChange={this.handleInputChange}
-                                    onFocus={this.handleInputFocus}
+                                    value={userData.userPaymentData.cvc}
+                                    onChange={handleInputChange}
+                                    onFocus={handleInputFocus}
                                 />
                             </div>
                         </div>
-                        <input type="hidden" name="issuer" value={issuer} />
+                        <input
+                            type="hidden"
+                            name="issuer"
+                            value={state.issuer}
+                        />
                         <div className="form-actions">
                             <button
                                 className="btn btn-primary btn-block"
@@ -158,6 +192,7 @@ export default class App extends React.Component {
                         </div>
                     </form>
                 </CardBoxes>
+                <ToastContainer />
             </div>
         );
     }
@@ -216,3 +251,5 @@ const CardBoxes = styled.div`
         }
     }
 `;
+
+/*                 setUserData({...userData, userPaymentData: {...userData.userPaymentData, number: target.value}) */

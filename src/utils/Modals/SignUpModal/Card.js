@@ -3,16 +3,23 @@ import Card from "react-bootstrap/Card";
 import UserContext from "../../../context.js/UserContext";
 
 export default function CardRender({ card }) {
-    const {progress, setProgress, userData, setUserData } = useContext(UserContext)
-    const [cardBorderColor, setCardBorderColor] = useState(userData.selectPlanId === card.id? true : false);
-    const [cardBgColor, setCardBgColor] = useState(userData.selectPlanId === card.id? true : false);
-    const [cardTextColor, setCardTextColor] = useState(userData.selectPlanId === card.id? true : false);
+    const { progress, setProgress, userData, setUserData } =
+        useContext(UserContext);
+    const [cardBorderColor, setCardBorderColor] = useState(
+        userData.selectPlanId === card.id ? true : false
+    );
+    const [cardBgColor, setCardBgColor] = useState(
+        userData.selectPlanId === card.id ? true : false
+    );
+    const [cardTextColor, setCardTextColor] = useState(
+        userData.selectPlanId === card.id ? true : false
+    );
 
     function selectCard() {
         setCardBorderColor(!cardBorderColor);
         setCardBgColor(!cardBgColor);
         setCardTextColor(!cardTextColor);
-        setUserData({...userData, selectPlanId: card.id})
+        setUserData({ ...userData, selectPlanId: card.id });
         setTimeout(() => setProgress(progress + 1), 500);
     }
 

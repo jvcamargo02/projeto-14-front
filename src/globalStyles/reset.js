@@ -44,7 +44,7 @@ table {
 
 * {
 	box-sizing: border-box;
-  font-family: "Quicksand", sans-serif;
+  	font-family: "Quicksand", sans-serif;
 
   .modal{
 		
@@ -59,6 +59,10 @@ table {
 		max-width: 400px;
 	}
 	}
+}
+
+body{
+	font-family: "Quicksand", sans-serif;
 }
 `;
 

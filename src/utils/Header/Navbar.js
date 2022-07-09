@@ -1,19 +1,41 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import ChoosePlan from "../Modals/SignUpModal/SignUpModal"
-import LoginModal from "../Modals/LoginModal/LoginModal"
+import ChoosePlan from "../Modals/SignUpModal/SignUpModal";
+import LoginModal from "../Modals/LoginModal/LoginModal";
 import logoImg from "../../assets/logo.png";
+import UserContext from "../../context.js/UserContext";
 
 export default function Navbar() {
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const userDataString = localStorage.getItem("userCredentials");
+    const { setToken } = useContext(UserContext);
     const [lgShow, setLgShow] = useState(false);
     const [smShow, setSmShow] = useState(false);
     const [toggle, setToggle] = useState(false);
+
+    function successLoggedUser({ token }) {
+        setToken(token);
+        navigate("/user");
+    }
+
+    function connectedUser() {
+        const credentials = JSON.parse(userDataString);
+
+        if (credentials !== null) {
+            const promisse = axios.post("http://localhost:5000/login", {
+                email: credentials.email,
+                password: credentials.password,
+            });
+            promisse.then((response) => successLoggedUser(response.data));
+            promisse.catch(() => setSmShow(true));
+        }
+    }
 
     return (
         <>
@@ -22,10 +44,12 @@ export default function Navbar() {
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
                 <NavbarDesktop>
-                    <span >Our plans</span>
-                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
+                    <span>Our plans</span>
+                    <span onClick={() => navigate("/how-it-works")}>
+                        How it works
+                    </span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span onClick={() => setSmShow(true)}>Login</span>
+                    <span onClick={() => connectedUser()}>Login</span>
                 </NavbarDesktop>
             </DesktopMain>
 
@@ -37,7 +61,9 @@ export default function Navbar() {
                 <main>
                     <img src={logoImg} alt="Logo" />
                     <span>Our plans</span>
-                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
+                    <span onClick={() => navigate("/how-it-works")}>
+                        How it works
+                    </span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span onClick={() => setSmShow(true)}>Login</span>
                     <p>Follow us</p>
@@ -49,7 +75,7 @@ export default function Navbar() {
                     </social-media>
                 </main>
             </MobileMain>
-            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow}/>
+            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow} />
             <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );
@@ -67,9 +93,9 @@ const DesktopMain = styled.div`
     padding: 0 40px;
     background: rgb(255, 255, 255);
     background: linear-gradient(
-        180deg,rgba(0, 0, 0, 0.3) 0%,
+        180deg,
+        rgba(0, 0, 0, 0.3) 0%,
         rgba(255, 255, 255, 0) 100%
-        
     );
     color: #fff;
 

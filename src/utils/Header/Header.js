@@ -1,16 +1,17 @@
-import styled from "styled-components"
+import styled from "styled-components";
 import Navbar from "./Navbar";
 import SignUpModal from "../Modals/SignUpModal/SignUpModal";
-import bannerImg from "../../assets/banner.gif"
+import bannerImg from "../../assets/banner.gif";
 import Banner from "./Banner";
 
 export default function Header() {
     return (
-    <Container>
+        <Container>
             <Navbar />
             <SignUpModal />
-            <Banner/>
-    </Container>)
+            <Banner />
+        </Container>
+    );
 }
 
 const Container = styled.div`
@@ -20,4 +21,4 @@ const Container = styled.div`
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-`
+`;

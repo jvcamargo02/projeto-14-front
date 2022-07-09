@@ -4,6 +4,9 @@ const UserContext = createContext();
 
 export function UserContextProvider(props) {
     const { children } = props;
+
+    const [token, setToken] = useState("")
+
     const [userData, setUserData] = useState({
         name: "",
         email: "",
@@ -20,7 +23,7 @@ export function UserContextProvider(props) {
     const [progress, setProgress] = useState(0)
 
     return (
-        <UserContext.Provider value={{ userData, setUserData, progress, setProgress }}>
+        <UserContext.Provider value={{ userData, setUserData, progress, setProgress, token, setToken }}>
             {children}
         </UserContext.Provider>
     );

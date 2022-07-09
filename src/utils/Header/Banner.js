@@ -65,7 +65,7 @@ const Container = styled.div`
             border-radius: 50px;
             font-weight: 700;
 
-            svg{
+            svg {
                 margin-left: 8px;
             }
         }

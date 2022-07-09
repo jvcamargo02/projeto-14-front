@@ -1,19 +1,41 @@
 import { useState } from "react";
+import axios from "axios";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { advice } from "../../../assets/toastifyFunctions";
+import { useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import UserContext from "../../../context.js/UserContext";
 
 export default function LoginPage() {
-    const [email,setEmail] = useState("")
-    const [password,setPassword] = useState("")
+    const navigate = useNavigate();
+    const { setToken } = useContext(UserContext);
+    const [email, setEmail] = useState("");
+    const [password, setPassword] = useState("");
+    const [checkBox, setCheckBox] = useState("");
 
+    function success(response) {
+        if (checkBox === "on") {
+            const credentials = JSON.stringify({ email, password });
+            localStorage.setItem("userCredentials", credentials);
+        }
 
-    console.log(email,password)
+        setToken(response.token);
+        navigate("/user");
+    }
 
     function onSubmit(e) {
         e.preventDefault();
+        console.log("entrei");
 
+        const promisse = axios.post("http://localhost:5000/login", {
+            email,
+            password,
+        });
 
+        promisse.then((response) => success(response.data));
+        promisse.catch((e) => advice(e.response.data));
     }
 
     return (
@@ -21,15 +43,29 @@ export default function LoginPage() {
             <Form onSubmit={onSubmit}>
                 <Form.Group className="mb-3" controlId="formBasicEmail">
                     <Form.Label>Email address</Form.Label>
-                    <Form.Control type="email" placeholder="Enter email" onChange={(e) => setEmail(e.target.value)} value={email}/>
+                    <Form.Control
+                        type="email"
+                        placeholder="Enter email"
+                        onChange={(e) => setEmail(e.target.value)}
+                        value={email}
+                    />
                 </Form.Group>
 
                 <Form.Group className="mb-3" controlId="formBasicPassword">
                     <Form.Label>Password</Form.Label>
-                    <Form.Control type="password" placeholder="Password" onChange={(e) => setPassword(e.target.value)} value={password}/>
+                    <Form.Control
+                        type="password"
+                        placeholder="Password"
+                        onChange={(e) => setPassword(e.target.value)}
+                        value={password}
+                    />
                 </Form.Group>
                 <Form.Group className="mb-3" controlId="formBasicCheckbox">
-                    <Form.Check type="checkbox" label="Check me out" />
+                    <Form.Check
+                        type="checkbox"
+                        label="Check me out"
+                        onChange={(e) => setCheckBox(e.target.value)}
+                    />
                 </Form.Group>
                 <Buttons>
                     <Button variant="dark" size="lg" type="submit">
@@ -55,7 +91,7 @@ const Container = styled.div`
     }
 
     form {
-        width: 100%
+        width: 100%;
     }
 `;
 

@@ -82,7 +82,6 @@ export default class App extends React.Component {
         function handleSubmit(e) {
             e.preventDefault();
 
-            console.log(userData);
             const promisse = axios.post(
                 "http://localhost:5000/sign-up",
                 userData

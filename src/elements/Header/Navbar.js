@@ -33,8 +33,8 @@ export default function Navbar() {
                 password: credentials.password,
             });
             promisse.then((response) => successLoggedUser(response.data));
-            promisse.catch(() => setSmShow(true));
         }
+        setSmShow(true)
     }
 
     return (
@@ -65,7 +65,7 @@ export default function Navbar() {
                         How it works
                     </span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span onClick={() => setSmShow(true)}>Login</span>
+                    <span onClick={() => connectedUser()}>Login</span>
                     <p>Follow us</p>
                     <social-media>
                         <BsFacebook />

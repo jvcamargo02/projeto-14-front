@@ -9,7 +9,7 @@ import { AiOutlineClose } from "react-icons/ai";
 import ChoosePlan from "../Modals/SignUpModal/SignUpModal";
 import LoginModal from "../Modals/LoginModal/LoginModal";
 import logoImg from "../../assets/logo.png";
-import UserContext from "../../context.js/UserContext";
+import UserContext from "../../contexts/UserContext";
 
 export default function Navbar() {
     const navigate = useNavigate();

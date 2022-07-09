@@ -10,7 +10,7 @@ import {
     formatExpirationDate,
 } from "./utils.js/PaymentUtils";
 import "react-credit-cards/es/styles-compiled.css";
-import UserContext from "../../../context.js/UserContext";
+import UserContext from "../../../contexts/UserContext";
 
 export default class App extends React.Component {
     static contextType = UserContext;

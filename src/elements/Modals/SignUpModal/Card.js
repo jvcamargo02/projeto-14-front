@@ -1,6 +1,6 @@
 import { useContext, useState } from "react";
 import Card from "react-bootstrap/Card";
-import UserContext from "../../../context.js/UserContext";
+import UserContext from "../../../contexts/UserContext";
 
 export default function CardRender({ card }) {
     const { progress, setProgress, userData, setUserData } =

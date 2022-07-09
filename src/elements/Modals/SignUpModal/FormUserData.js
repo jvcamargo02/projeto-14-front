@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import Button from "react-bootstrap/Button";
 import styled from "styled-components";
-import UserContext from "../../../context.js/UserContext";
+import UserContext from "../../../contexts/UserContext";
 
 export default function FormUserData() {
     const { setProgress, userData, setUserData } = useContext(UserContext);

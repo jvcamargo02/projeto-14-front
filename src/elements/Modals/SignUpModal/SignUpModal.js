@@ -4,7 +4,7 @@ import Modal from "react-bootstrap/Modal";
 import PaymentModal from "./PaymentModal";
 import SuccessModal from "./SuccessModal";
 import PlansCards from "./PlansCards";
-import UserContext from "../../../context.js/UserContext";
+import UserContext from "../../../contexts/UserContext";
 import FormUserData from "./FormUserData";
 
 export default function SignUpModal({ lgShow, setLgShow }) {

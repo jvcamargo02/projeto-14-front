@@ -6,7 +6,7 @@ import Form from "react-bootstrap/Form";
 import { advice } from "../../../assets/toastifyFunctions";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
-import UserContext from "../../../context.js/UserContext";
+import UserContext from "../../../contexts/UserContext";
 
 export default function LoginPage() {
     const navigate = useNavigate();

@@ -1,14 +1,18 @@
 import { useState } from "react";
 import styled from "styled-components";
-import logoImg from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import ChoosePlan from "./Modals/SignUpModal/SignUpModal"
+import ChoosePlan from "../Modals/SignUpModal/SignUpModal"
+import LoginModal from "../Modals/LoginModal/LoginModal"
+import logoImg from "../../assets/logo.png";
 
 export default function Navbar() {
+    const navigate = useNavigate()
     const [lgShow, setLgShow] = useState(false);
+    const [smShow, setSmShow] = useState(false);
     const [toggle, setToggle] = useState(false);
 
     return (
@@ -18,10 +22,10 @@ export default function Navbar() {
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
                 <NavbarDesktop>
-                    <span>Our plans</span>
-                    <span>How it works</span>
+                    <span >Our plans</span>
+                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span>Login</span>
+                    <span onClick={() => setSmShow(true)}>Login</span>
                 </NavbarDesktop>
             </DesktopMain>
 
@@ -33,9 +37,9 @@ export default function Navbar() {
                 <main>
                     <img src={logoImg} alt="Logo" />
                     <span>Our plans</span>
-                    <span>How it works</span>
+                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
-                    <span>Login</span>
+                    <span onClick={() => setSmShow(true)}>Login</span>
                     <p>Follow us</p>
                     <social-media>
                         <BsFacebook />
@@ -46,17 +50,27 @@ export default function Navbar() {
                 </main>
             </MobileMain>
             <ChoosePlan lgShow={lgShow} setLgShow={setLgShow}/>
+            <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );
 }
 
 const DesktopMain = styled.div`
     height: 60px;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
     box-sizing: border-box;
+    position: fixed;
+    z-index: 1;
     padding: 0 40px;
+    background: rgb(255, 255, 255);
+    background: linear-gradient(
+        180deg,rgba(0, 0, 0, 0.3) 0%,
+        rgba(255, 255, 255, 0) 100%
+        
+    );
     color: #fff;
 
     img {
@@ -67,8 +81,7 @@ const DesktopMain = styled.div`
     span,
     svg {
         cursor: pointer;
-        font-weight: 700;
-        text-shadow: 0 0 #000;
+        font-weight: 600;
     }
 
     svg {
@@ -95,7 +108,7 @@ const MobileMain = styled.div`
     height: 100vh;
     width: 100%;
     background-color: #000;
-    position: absolute;
+    position: fixed;
     top: 0;
     z-index: 1;
     color: #fff;

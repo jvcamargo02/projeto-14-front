@@ -1,15 +1,15 @@
 import styled from "styled-components"
 import Navbar from "./Navbar";
-import SignUpModal from "./Modals/SignUpModal/SignUpModal";
-import bannerImg from "../assets/banner.gif"
-import Teste from "./teste";
+import SignUpModal from "../Modals/SignUpModal/SignUpModal";
+import bannerImg from "../../assets/banner.gif"
+import Banner from "./Banner";
 
 export default function Header() {
     return (
     <Container>
             <Navbar />
             <SignUpModal />
-            <Teste/>
+            <Banner/>
     </Container>)
 }
 

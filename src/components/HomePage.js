@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import Header from "../utils/Header";
-import Banner from "../utils/Header";
-import SignUpModal from "../utils/Modals/SignUpModal/SignUpModal";
+import Header from "../utils/Header/Header";
 
 export default function HomePage() {
 

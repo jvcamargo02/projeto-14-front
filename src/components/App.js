@@ -3,7 +3,6 @@ import GlobalStyle from "../globalStyles/reset";
 import  'bootstrap/dist/css/bootstrap.min.css'
 import HomePage from "./HomePage";
 import { UserContextProvider } from "../context.js/UserContext";
-import { useState } from "react";
 
 export default function App() {
 

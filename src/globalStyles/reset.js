@@ -51,7 +51,14 @@ body{
 			gap:10px
 		}
 	}
-}
-`;
+
+	@media (min-width: 576px){
+
+		.modal-sm {	
+			max-width: 400px;
+		}
+		}
+	}
+`
 
 export default GlobalStyle;

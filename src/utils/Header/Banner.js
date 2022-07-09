@@ -1,12 +1,15 @@
 import styled from "styled-components";
+import { BsArrowRight } from "react-icons/bs";
 
-export default function teste() {
+export default function Banner() {
     return (
         <Container>
             <main>
                 <h1>A new day has arrived on Earth for coffee</h1>
                 <p>Incredibly delicious coffee made impossibly convenient.</p>
-                <button>Get started →</button>
+                <button>
+                    Get started <BsArrowRight />
+                </button>
             </main>
         </Container>
     );
@@ -37,7 +40,7 @@ const Container = styled.div`
             text-align: center;
             color: #fff;
             font-weight: 400;
-            margin-bottom: 15px;
+            margin: 80px 0 15px 0;
             font-family: "Montserrat", sans-serif;
         }
 
@@ -61,6 +64,10 @@ const Container = styled.div`
             justify-content: center;
             border-radius: 50px;
             font-weight: 700;
+
+            svg{
+                margin-left: 8px;
+            }
         }
     }
 `;

@@ -1,23 +1,26 @@
 import { useState } from "react";
 import styled from "styled-components";
 import logoImg from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
 
 export default function Header() {
+    const navigate = useNavigate();
+
     const [toggle, setToggle] = useState(false);
 
     return (
         <>
             <DesktopMain>
-                <img src={logoImg} alt="Logo" />
+                <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
                 <Navbar>
                     <span>Our plans</span>
-                    <span>How it works</span>
+                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span>Sign up</span>
                     <span>Login</span>
                 </Navbar>
@@ -29,7 +32,7 @@ export default function Header() {
                 </background>
 
                 <main>
-                    <img src={logoImg} alt="Logo" />
+                    <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                     <span>Our plans</span>
                     <span>How it works</span>
                     <span>Sign up</span>
@@ -61,6 +64,7 @@ const DesktopMain = styled.div`
     img {
         height: 60px;
         filter: invert(100%);
+        cursor: pointer;
     }
 
     span,
@@ -115,6 +119,7 @@ const MobileMain = styled.div`
             height: 80px;
             width: 200px;
             filter: invert(100%);
+            cursor: pointer;
         }
 
         social-media {

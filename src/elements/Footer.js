@@ -42,15 +42,12 @@ export default function Footer() {
 }
 
 const FooterContainer = styled.div`
+    z-index: 1;
     display: flex;
     justify-content: center;
     color: #ffffff;
     background: rgb(2, 0, 36);
-    background: linear-gradient(
-        0deg,
-        rgba(2, 0, 36, 1) 0%,
-        rgba(0, 0, 0, 1) 76%
-    );
+    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(0, 0, 0, 1) 76%);
 
     h5 {
         font-weight: 700;

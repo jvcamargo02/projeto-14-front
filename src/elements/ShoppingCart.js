@@ -1,16 +1,21 @@
 import axios from "axios";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
-import { Card, Col, Container, Modal, Row } from "react-bootstrap";
+import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
+import { useNavigate } from "react-router-dom";
 
 import UserContext from "../contexts/UserContext";
+import ShoppingCartContext from "../contexts/ShoppingCartContext";
 
 export default function ShoppingCart(props) {
-    const { setIsModalVisible } = props;
+    const navigate = useNavigate();
+    const { setIsCartVisible } = props;
     const { token } = useContext(UserContext);
+    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
 
-    const [shoppingCartList, setShoppingCartList] = useState([]);
+    console.log(shoppingCartList);
+
     const [limit, setLimit] = useState(0);
 
     useEffect(() => {
@@ -24,43 +29,54 @@ export default function ShoppingCart(props) {
         });
     }, []);
 
+    function confirmPurchase() {
+        const initialValue = 0;
+        const itemsCounter = shoppingCartList.reduce(
+            (total, item) => total + item.counter,
+            initialValue
+        );
+
+        if (itemsCounter > limit) {
+            alert(`Select max ${limit} products`);
+            return;
+        }
+
+        if (itemsCounter === 0) {
+            alert(`Select min 1 product`);
+            return;
+        }
+
+        navigate("/purchase");
+    }
+
     return (
-        <Modal
-            size="lg"
-            show
-            fullscreen={"lg-down"}
-            onHide={() => setIsModalVisible(false)}
-            aria-labelledby="example-modal-sizes-title-lg"
-        >
+        <Cart size="xl" show fullscreen={"lg-down"} onHide={() => setIsCartVisible(false)}>
             <Modal.Header closeButton>
-                <Modal.Title id="example-modal-sizes-title-lg">
-                    Shopping Cart {`(max ${limit})`}
+                <Modal.Title className="d-flex justify-content-between w-100">
+                    <p>Select max {limit} products.</p>
+                    <Button variant="success" className="mx-3" onClick={confirmPurchase}>
+                        Confirm Purchase
+                    </Button>
                 </Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Container>
-                    <ProductsList sm={2} lg={3} className={"row-cols-1 g-3"}>
-                        {shoppingCartList.map((item) => (
-                            <SelectedProduct
-                                key={item.product._id}
-                                shoppingCartList={shoppingCartList}
-                                setShoppingCartList={setShoppingCartList}
-                                item={item}
-                                token={token}
-                            />
+                    <Row sm={2} md={2} lg={3} xl={4} className="row-cols-1">
+                        {shoppingCartList.map((item, index) => (
+                            <SelectedProduct key={item.product._id} item={item} index={index} />
                         ))}
-                    </ProductsList>
+                    </Row>
                 </Container>
             </Modal.Body>
-        </Modal>
+        </Cart>
     );
 }
 
 function SelectedProduct(props) {
-    const { shoppingCartList, setShoppingCartList, item, token } = props;
+    const { item, index } = props;
     const { product, counter } = item;
-
-    const [itemCounter, setItemCounter] = useState(counter);
+    const { token } = useContext(UserContext);
+    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
 
     function addProductCounter() {
         const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
@@ -72,7 +88,9 @@ function SelectedProduct(props) {
             }
         );
 
-        setItemCounter(itemCounter + 1);
+        const newShoppingCartList = [...shoppingCartList];
+        newShoppingCartList[index] = { product, counter: counter + 1 };
+        setShoppingCartList(newShoppingCartList);
     }
 
     function subtractProductCounter() {
@@ -85,7 +103,11 @@ function SelectedProduct(props) {
             }
         );
 
-        if (itemCounter - 1 === 0) {
+        const newShoppingCartList = [...shoppingCartList];
+        newShoppingCartList[index] = { product, counter: counter - 1 };
+        setShoppingCartList(newShoppingCartList);
+
+        if (counter - 1 === 0) {
             const newShoppingCartList = shoppingCartList.filter(
                 (filtered) => filtered.product._id !== product._id
             );
@@ -93,12 +115,10 @@ function SelectedProduct(props) {
             setShoppingCartList(newShoppingCartList);
             return;
         }
-
-        setItemCounter(itemCounter - 1);
     }
 
     return (
-        <Product>
+        <Product className="col-lg">
             <Card>
                 <Card.Img variant="top" src={product.imgURL} />
                 <Card.Body>
@@ -106,7 +126,7 @@ function SelectedProduct(props) {
                 </Card.Body>
                 <Card.Footer>
                     <AiOutlineMinusCircle onClick={subtractProductCounter} />
-                    {itemCounter}
+                    {counter}
                     <AiOutlinePlusCircle onClick={addProductCounter} />
                 </Card.Footer>
             </Card>
@@ -114,15 +134,13 @@ function SelectedProduct(props) {
     );
 }
 
-const ProductsList = styled(Row)`
-    @media (max-width: 575px) {
-        justify-content: center;
+const Cart = styled(Modal)`
+    * {
+        gap: 0px;
     }
 `;
 
 const Product = styled(Col)`
-    max-width: 350px;
-
     img {
         height: 150px;
         object-fit: cover;

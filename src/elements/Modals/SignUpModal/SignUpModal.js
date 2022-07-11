@@ -1,4 +1,4 @@
-import { useContext } from "react";
+import { useState, useContext } from "react";
 import styled from "styled-components";
 import Modal from "react-bootstrap/Modal";
 import PaymentModal from "./PaymentModal";
@@ -6,9 +6,11 @@ import SuccessModal from "./SuccessModal";
 import PlansCards from "./PlansCards";
 import UserContext from "../../../contexts/UserContext";
 import FormUserData from "./FormUserData";
-
+import ShippingInfo from "./ShippingInfo"
+ 
 export default function SignUpModal({ lgShow, setLgShow }) {
     const { progress } = useContext(UserContext);
+    const [amount, setAmount] = useState("")
 
     const modals = [
         {
@@ -17,6 +19,10 @@ export default function SignUpModal({ lgShow, setLgShow }) {
         },
         {
             title: "Sign up",
+            type: "Form",
+        },
+        {
+            title: "Shipping",
             type: "Form",
         },
         {
@@ -32,12 +38,14 @@ export default function SignUpModal({ lgShow, setLgShow }) {
     function renderModal() {
         switch (progress) {
             case 0:
-                return <PlansCards />;
+                return <PlansCards setAmount={setAmount}/>;
             case 1:
                 return <FormUserData />;
             case 2:
-                return <PaymentModal />;
+                return <ShippingInfo />;
             case 3:
+                return <PaymentModal amount={amount}/>;
+            case 4:
                 return <SuccessModal />;
         }
     }

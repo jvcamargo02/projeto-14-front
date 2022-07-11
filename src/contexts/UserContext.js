@@ -19,7 +19,14 @@ export function UserContextProvider(props) {
         name: "",
         email: "",
         password: "",
-        selectPlanId: '',
+        selectPlanId: "",
+        capsules: "7",
+        userAddress: {
+            address: "",
+            city: "",
+            state: "",
+            zip: "",
+        },
         userPaymentData: {
             number: "",
             cardName: "",
@@ -28,10 +35,19 @@ export function UserContextProvider(props) {
         },
     });
 
-    const [progress, setProgress] = useState(0)
+    const [progress, setProgress] = useState(0);
 
     return (
-        <UserContext.Provider value={{ userData, setUserData, progress, setProgress, token, setToken }}>
+        <UserContext.Provider
+            value={{
+                userData,
+                setUserData,
+                progress,
+                setProgress,
+                token,
+                setToken,
+            }}
+        >
             {children}
         </UserContext.Provider>
     );

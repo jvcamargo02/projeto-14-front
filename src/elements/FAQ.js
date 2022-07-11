@@ -9,47 +9,29 @@ export default function FAQ() {
             </h2>
             <Accordion flush>
                 <Accordion.Item eventKey="0">
-                    <Accordion.Header>Accordion Item #1</Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <Accordion.Header>Are there any commitments?</Accordion.Header>
+                    <Accordion.Body className="px-4">
+                        Nope. You can skip your weekly delivery or cancel at any time.
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="1">
-                    <Accordion.Header>Accordion Item #2</Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <Accordion.Header>Can I select my products?</Accordion.Header>
+                    <Accordion.Body className="px-4">
+                        Yes! You can choose your products every week.
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="2">
-                    <Accordion.Header>Accordion Item #3</Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <Accordion.Header>What if I'm not home?</Accordion.Header>
+                    <Accordion.Body className="px-4">
+                        Delivery times are from 8 am to 8 pm on the day you choose. If you’re not at
+                        home, don’t worry! You can always add special delivery instructions to your
+                        account.
                     </Accordion.Body>
                 </Accordion.Item>
                 <Accordion.Item eventKey="3">
-                    <Accordion.Header>Accordion Item #4</Accordion.Header>
-                    <Accordion.Body>
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-                        quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-                        cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat
-                        non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                    <Accordion.Header>What if I don't want a delivery every week?</Accordion.Header>
+                    <Accordion.Body className="px-4">
+                        No worries. You can easily skip a week (or several!) when you need to.
                     </Accordion.Body>
                 </Accordion.Item>
             </Accordion>
@@ -64,7 +46,12 @@ const FAQContainer = styled(Container)`
 
     h2 {
         padding: 20px;
-        font-size: 30px;
+        font-size: 40px;
+        font-weight: 700;
         text-align: center;
+    }
+
+    .accordion-button {
+        font-weight: 500;
     }
 `;

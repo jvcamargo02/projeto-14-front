@@ -6,7 +6,6 @@ import { BsReceiptCutoff } from "react-icons/bs";
 import { ImCheckmark2 } from "react-icons/im";
 import { MdOutlineAddShoppingCart, MdDeliveryDining } from "react-icons/md";
 import { useNavigate } from "react-router-dom";
-
 import UserContext from "../contexts/UserContext";
 import ShoppingCartContext from "../contexts/ShoppingCartContext";
 

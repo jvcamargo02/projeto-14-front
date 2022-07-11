@@ -1,11 +1,9 @@
 import axios from "axios";
-
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { Button, Card, Col, Container, Modal, Row } from "react-bootstrap";
 import { AiOutlineMinusCircle, AiOutlinePlusCircle } from "react-icons/ai";
 import { useNavigate } from "react-router-dom";
-
 import UserContext from "../contexts/UserContext";
 import ShoppingCartContext from "../contexts/ShoppingCartContext";
 

@@ -3,6 +3,7 @@ import { useState, useContext } from "react";
 import axios from "axios";
 import { BiUserCircle } from "react-icons/bi";
 import { TiShoppingCart } from "react-icons/ti";
+import { IoMdExit } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 import ProductsList from "../elements/Products";
@@ -40,6 +41,12 @@ export default function UserPage() {
         });
     }
 
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userCredentials");
+        navigate("/", { replace: true });
+    }
+
     return (
         <>
             <Header>
@@ -47,6 +54,7 @@ export default function UserPage() {
                     <img src={logoImg} alt="Midnight Owl Cafe logo" onClick={() => navigate("/")} />
                     <TiShoppingCart onClick={() => setIsCartVisible(true)} />
                     <BiUserCircle onClick={() => setConfig()} />
+                    <IoMdExit onClick={logout} />
                 </div>
             </Header>
             {isCartVisible && <ShoppingCart setIsCartVisible={setIsCartVisible} />}

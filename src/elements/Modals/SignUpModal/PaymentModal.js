@@ -4,11 +4,7 @@ import Card from "react-credit-cards";
 import styled from "styled-components";
 import { ToastContainer } from "react-toastify";
 import { advice } from "../../../assets/toastifyFunctions";
-import {
-    formatCreditCardNumber,
-    formatCVC,
-    formatExpirationDate,
-} from "./utils.js/PaymentUtils";
+import { formatCreditCardNumber, formatCVC, formatExpirationDate } from "./utils.js/PaymentUtils";
 import "react-credit-cards/es/styles-compiled.css";
 import UserContext from "../../../contexts/UserContext";
 
@@ -25,7 +21,7 @@ export default class App extends React.Component {
             cvc: userData.userPaymentData.cvc,
             issuer: "",
             focused: "",
-            formData: null,
+            formData: null
         };
 
         function handleCallback({ issuer }, isValid) {
@@ -45,8 +41,8 @@ export default class App extends React.Component {
                     ...userData,
                     userPaymentData: {
                         ...userData.userPaymentData,
-                        number: target.value,
-                    },
+                        number: target.value
+                    }
                 });
             } else if (target.name === "expiry") {
                 target.value = formatExpirationDate(target.value);
@@ -54,8 +50,8 @@ export default class App extends React.Component {
                     ...userData,
                     userPaymentData: {
                         ...userData.userPaymentData,
-                        expiry: target.value,
-                    },
+                        expiry: target.value
+                    }
                 });
             } else if (target.name === "cvc") {
                 target.value = formatCVC(target.value);
@@ -63,16 +59,16 @@ export default class App extends React.Component {
                     ...userData,
                     userPaymentData: {
                         ...userData.userPaymentData,
-                        cvc: target.value,
-                    },
+                        cvc: target.value
+                    }
                 });
             } else if (target.name === "name") {
                 setUserData({
                     ...userData,
                     userPaymentData: {
                         ...userData.userPaymentData,
-                        cardName: target.value,
-                    },
+                        cardName: target.value
+                    }
                 });
             }
 
@@ -82,15 +78,11 @@ export default class App extends React.Component {
         function handleSubmit(e) {
             e.preventDefault();
 
-            const promisse = axios.post(
-                "http://localhost:5000/sign-up",
-                userData
-            );
+            const promisse = axios.post("http://localhost:5000/sign-up", userData);
 
             promisse.then(() => setProgress(progress + 1));
             promisse.catch((e) => advice(e.response.data));
         }
-        console.log(this.props)
         return (
             <div key="Payment">
                 <CardBoxes className="App-payment">
@@ -105,11 +97,7 @@ export default class App extends React.Component {
                     <form
                         ref={(c) => (this.form = c)}
                         onSubmit={(e) =>
-                            handleSubmit(
-                                e,
-                                this.props.setProgress,
-                                this.props.progress
-                            )
+                            handleSubmit(e, this.props.setProgress, this.props.progress)
                         }
                     >
                         <div className="form-group">
@@ -170,11 +158,7 @@ export default class App extends React.Component {
                                 />
                             </div>
                         </div>
-                        <input
-                            type="hidden"
-                            name="issuer"
-                            value={state.issuer}
-                        />
+                        <input type="hidden" name="issuer" value={state.issuer} />
                         <div className="form-actions">
                             <button
                                 className="btn btn-primary btn-block"
@@ -182,10 +166,7 @@ export default class App extends React.Component {
                             >
                                 Go back
                             </button>
-                            <button
-                                type="submit"
-                                className="btn btn-primary btn-block"
-                            >
+                            <button type="submit" className="btn btn-primary btn-block">
                                 {this.props.amount}
                             </button>
                         </div>

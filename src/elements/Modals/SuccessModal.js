@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { Button, Modal } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
-import success from "../assets/success.png";
+import success from "../../assets/success.png";
 
 export default function SuccessModel() {
     const navigate = useNavigate();

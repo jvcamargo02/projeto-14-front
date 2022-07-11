@@ -6,8 +6,8 @@ import { Button, Container, Row, Card } from "react-bootstrap";
 
 import UserContext from "../contexts/UserContext";
 import ShoppingCartListContext from "../contexts/ShoppingCartContext";
-import SuccessModel from "../elements/SuccessModel";
-import ErrorModel from "../elements/ErrorModel";
+import SuccessModal from "../elements/Modals/SuccessModal";
+import ErrorModal from "../elements/Modals/ErrorModal";
 import logoImg from "../assets/logo.png";
 
 export default function PurchasePage() {
@@ -34,10 +34,10 @@ export default function PurchasePage() {
         );
 
         promise.then(() => {
-            setResult(<SuccessModel />);
+            setResult(<SuccessModal />);
         });
         promise.catch((err) => {
-            setResult(<ErrorModel errorMessage={err.response.data} />);
+            setResult(<ErrorModal errorMessage={err.response.data} />);
         });
     }
 

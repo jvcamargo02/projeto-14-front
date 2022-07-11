@@ -5,7 +5,7 @@ const UserContext = createContext();
 export function UserContextProvider(props) {
     const { children } = props;
 
-    const [token, setToken] = useState("1154a7b6-0987-41c0-a804-1833eeec9281");
+    const [token, setToken] = useState(null);
 
     const locallyStoredToken = localStorage.getItem("token");
 
@@ -20,12 +20,12 @@ export function UserContextProvider(props) {
         email: "",
         password: "",
         selectPlanId: "",
-        capsules: "7",
+        capsules: 7,
         userAddress: {
             address: "",
             city: "",
             state: "",
-            zip: "",
+            zip: ""
         },
         userPaymentData: {
             number: "",
@@ -45,7 +45,7 @@ export function UserContextProvider(props) {
                 progress,
                 setProgress,
                 token,
-                setToken,
+                setToken
             }}
         >
             {children}

@@ -83,6 +83,8 @@ export default class App extends React.Component {
             promisse.then(() => setProgress(progress + 1));
             promisse.catch((e) => advice(e.response.data));
         }
+
+
         return (
             <div key="Payment">
                 <CardBoxes className="App-payment">
@@ -160,7 +162,9 @@ export default class App extends React.Component {
                         </div>
                         <input type="hidden" name="issuer" value={state.issuer} />
                         <div className="form-actions">
-                            <button
+                            {this.props.location === "/" ?
+                            <>
+                              <button
                                 className="btn btn-primary btn-block"
                                 onClick={() => setProgress(progress - 1)}
                             >
@@ -169,6 +173,8 @@ export default class App extends React.Component {
                             <button type="submit" className="btn btn-primary btn-block">
                                 {this.props.amount}
                             </button>
+                            </> : null}
+
                         </div>
                     </form>
                 </CardBoxes>

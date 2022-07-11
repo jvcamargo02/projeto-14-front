@@ -6,7 +6,7 @@ import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
 import { GoMarkGithub } from "react-icons/go";
 import { AiOutlineClose } from "react-icons/ai";
-import ChoosePlan from "../Modals/SignUpModal/SignUpModal";
+import SignUpModal from "../Modals/SignUpModal/SignUpModal";
 import LoginModal from "../Modals/LoginModal/LoginModal";
 import logoImg from "../../assets/logo.png";
 import UserContext from "../../contexts/UserContext";
@@ -19,7 +19,7 @@ export default function Navbar() {
     const [smShow, setSmShow] = useState(false);
     const [toggle, setToggle] = useState(false);
 
-    function successLoggedUser({ token }) {
+    function successLoggedUser(token) {
         setToken(token);
         navigate("/user");
     }
@@ -75,7 +75,7 @@ export default function Navbar() {
                     </social-media>
                 </main>
             </MobileMain>
-            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow} />
+            <SignUpModal lgShow={lgShow} setLgShow={setLgShow} setSmShow={setSmShow}/>
             <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );

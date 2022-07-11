@@ -18,6 +18,7 @@ export default function ShoppingCart(props) {
 
     useEffect(() => {
         const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
         const promise = axios.get(`${API_BASE_URL}/shopping-cart`, {
             headers: { Authorization: `Bearer ${token}` }
         });

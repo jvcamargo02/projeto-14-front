@@ -1,8 +1,9 @@
 import styled from "styled-components";
-import { useState, useContext }from "react";
-import axios from "axios"
+import { useState, useContext } from "react";
+import axios from "axios";
 import { BiUserCircle } from "react-icons/bi";
 import { TiShoppingCart } from "react-icons/ti";
+import { IoMdExit } from "react-icons/io";
 import { useNavigate } from "react-router-dom";
 
 import ProductsList from "../elements/Products";
@@ -16,15 +17,16 @@ export default function UserPage() {
     const navigate = useNavigate();
 
     const [isCartVisible, setIsCartVisible] = useState(false);
+
     const [isConfigsVisible, setIsConfigsVisible] = useState(false);    
     const { token, userData, setUserData } = useContext(UserContext)
     const [smShow, setSmShow] = useState(false);
 
-    function setConfig () {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-        const promise = axios.get(`http://localhost:5000/user-config`, {
-            headers: { Authorization: `Bearer ${token}` },
+
+    function setConfig() {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const promise = axios.get(`${API_BASE_URL}/user-config`, {
+            headers: { Authorization: `Bearer ${token}` }
         });
 
         promise.then((res) => {
@@ -33,7 +35,14 @@ export default function UserPage() {
             const {cardName, expiry, number} = userPaymentData
             setUserData({...userData, name, email, capsules, selectPlanId, validation: res.data.validation, userAddress, userPaymentData: {...userData.userPaymentData, cardName, expiry, number}});
             setIsConfigsVisible(true)
+
         });
+    }
+
+    function logout() {
+        localStorage.removeItem("token");
+        localStorage.removeItem("userCredentials");
+        navigate("/", { replace: true });
     }
 
     return (
@@ -43,6 +52,7 @@ export default function UserPage() {
                     <img src={logoImg} alt="Midnight Owl Cafe logo" onClick={() => navigate("/")} />
                     <TiShoppingCart onClick={() => setIsCartVisible(true)} />
                     <BiUserCircle onClick={() => setConfig()} />
+                    <IoMdExit onClick={logout} />
                 </div>
             </Header>
             {isCartVisible && <ShoppingCart setIsCartVisible={setIsCartVisible} />}

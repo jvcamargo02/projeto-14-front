@@ -29,7 +29,9 @@ export default function LoginPage() {
     function onSubmit(e) {
         e.preventDefault();
 
-        const promisse = axios.post("http://localhost:5000/login", {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
+        const promisse = axios.post(`${API_BASE_URL}/login`, {
             email,
             password
         });

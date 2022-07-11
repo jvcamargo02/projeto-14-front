@@ -4,19 +4,23 @@ import { useContext, useEffect, useState } from "react";
 import { Button, Container, Card, Col, Row } from "react-bootstrap";
 import { BsReceiptCutoff } from "react-icons/bs";
 import { ImCheckmark2 } from "react-icons/im";
+import CardGroup from "react-bootstrap/CardGroup";
 import { MdOutlineAddShoppingCart, MdDeliveryDining } from "react-icons/md";
+
 
 import UserContext from "../contexts/UserContext";
 import ShoppingCartContext from "../contexts/ShoppingCartContext";
 
 export default function ProductsList() {
     const { token } = useContext(UserContext);
-    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
+    const { shoppingCartList, setShoppingCartList } =
+        useContext(ShoppingCartContext);
 
     useEffect(() => {
-        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL =
+            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const promise = axios.get(`${API_BASE_URL}/shopping-cart`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
         });
         promise.then((res) => {
             setShoppingCartList(res.data.cart);
@@ -26,9 +30,10 @@ export default function ProductsList() {
     const [productsList, setProductsList] = useState([]);
 
     useEffect(() => {
-        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL =
+            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const promise = axios.get(`${API_BASE_URL}/products`, {
-            headers: { Authorization: `Bearer ${token}` }
+            headers: { Authorization: `Bearer ${token}` },
         });
         promise.then((res) => {
             setProductsList(res.data);
@@ -69,15 +74,24 @@ export default function ProductsList() {
                 </Row>
             </Instructions>
             <Container>
-                <Row sm={2} lg={4} className={"row-cols-1"}>
-                    {productsList.map((product) => {
-                        const active = shoppingCartList.some(
-                            (item) => item.product._id === product._id
-                        );
 
-                        return <Product key={product._id} product={product} active={active} />;
-                    })}
-                </Row>
+              <Row sm={2} lg={4} className={"row-cols-1"}> 
+                    
+                        {productsList.map((product) => {
+                            const active = shoppingCartList.some(
+                                (item) => item.product._id === product._id
+                            );
+
+                            return (
+                                <Product
+                                    key={product._id}
+                                    product={product}
+                                    active={active}
+                                />
+                            );
+                        })}
+                    
+                 </Row> 
             </Container>
         </div>
     );
@@ -86,14 +100,16 @@ export default function ProductsList() {
 function Product(props) {
     const { product, active } = props;
     const { token } = useContext(UserContext);
-    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
+    const { shoppingCartList, setShoppingCartList } =
+        useContext(ShoppingCartContext);
 
     function selectProduct() {
-        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const API_BASE_URL =
+            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
 
         if (active) {
             axios.delete(`${API_BASE_URL}/shopping-cart/${product._id}`, {
-                headers: { Authorization: `Bearer ${token}` }
+                headers: { Authorization: `Bearer ${token}` },
             });
 
             const newShoppingCartList = shoppingCartList.filter(
@@ -108,11 +124,14 @@ function Product(props) {
                 `${API_BASE_URL}/shopping-cart`,
                 { productId: product._id },
                 {
-                    headers: { Authorization: `Bearer ${token}` }
+                    headers: { Authorization: `Bearer ${token}` },
                 }
             );
 
-            const newShoppingCartList = [...shoppingCartList, { counter: 1, product }];
+            const newShoppingCartList = [
+                ...shoppingCartList,
+                { counter: 1, product },
+            ];
 
             setShoppingCartList(newShoppingCartList);
         }
@@ -125,7 +144,11 @@ function Product(props) {
                 <Card.Body>
                     <div>
                         <Card.Title>{product.name}</Card.Title>
-                        <Button variant="outline-success" active={active} onClick={selectProduct}>
+                        <Button
+                            variant="outline-success"
+                            active={active}
+                            onClick={selectProduct}
+                        >
                             {active ? <ImCheckmark2 /> : "Add"}
                         </Button>
                     </div>

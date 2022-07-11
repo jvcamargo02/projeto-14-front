@@ -1,16 +1,19 @@
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 
-export default function SuccessModal() {
+export default function SuccessModal({setSmShow, setLgShow}) {
     return (
         <Container>
             <h1>Congratulations 🎉🎉</h1>
             <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-                eiusmod tempor incididunt ut labore et dolore magna aliqua.
-                Libero enim sed faucibus turpis in eu mi.
+            You are now part of the select group of developers who know the magic of Midnight Owl Cafe. There will be no more sleep during your nightly programming.
             </p>
-            <Button variant="dark" size="lg">
+            <Button 
+            variant="dark" 
+            size="lg" 
+            onClick={() => {
+                setSmShow(true); 
+                setLgShow(false)}}>
                 Go to Login
             </Button>
         </Container>
@@ -32,5 +35,6 @@ const Container = styled.div`
     p {
         font-size: 19px;
         margin-bottom: 20px;
+        text-align: center;
     }
 `;

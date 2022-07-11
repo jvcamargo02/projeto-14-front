@@ -10,6 +10,7 @@ export default function Footer() {
 
     return (
         <FooterContainer>
+            
             <Container className="py-5">
                 <Row className="row-cols-1 row-cols-sm-1 row-cols-md-3">
                     <Col className="col-md px-4 py-4">
@@ -46,8 +47,6 @@ const FooterContainer = styled.div`
     display: flex;
     justify-content: center;
     color: #ffffff;
-    background: rgb(2, 0, 36);
-    background: linear-gradient(0deg, rgba(2, 0, 36, 1) 0%, rgba(0, 0, 0, 1) 76%);
 
     h5 {
         font-weight: 700;

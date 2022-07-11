@@ -3,6 +3,7 @@ import axios from "axios";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
+import { ToastContainer } from "react-toastify";
 import { advice } from "../../../assets/toastifyFunctions";
 import { useNavigate } from "react-router-dom";
 import { useContext } from "react";
@@ -27,7 +28,6 @@ export default function LoginPage() {
 
     function onSubmit(e) {
         e.preventDefault();
-        console.log("entrei");
 
         const promisse = axios.post("http://localhost:5000/login", {
             email,
@@ -73,6 +73,7 @@ export default function LoginPage() {
                     </Button>
                 </Buttons>
             </Form>
+            <ToastContainer />
         </Container>
     );
 }

@@ -1,4 +1,5 @@
 import { useState } from "react";
+
 import axios from "axios";
 import styled from "styled-components";
 import Button from "react-bootstrap/Button";
@@ -15,6 +16,7 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [checkBox, setCheckBox] = useState("");
+    config()
 
     function success(response) {
         if (checkBox === "on") {

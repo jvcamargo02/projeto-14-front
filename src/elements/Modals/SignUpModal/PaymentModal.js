@@ -78,12 +78,13 @@ export default class App extends React.Component {
         function handleSubmit(e) {
             e.preventDefault();
 
-            const promisse = axios.post("http://localhost:5000/sign-up", userData);
+            const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
+            const promisse = axios.post(`${API_BASE_URL}/sign-up`, userData);
 
             promisse.then(() => setProgress(progress + 1));
             promisse.catch((e) => advice(e.response.data));
         }
-
 
         return (
             <div key="Payment">
@@ -162,19 +163,19 @@ export default class App extends React.Component {
                         </div>
                         <input type="hidden" name="issuer" value={state.issuer} />
                         <div className="form-actions">
-                            {this.props.location === "/" ?
-                            <>
-                              <button
-                                className="btn btn-primary btn-block"
-                                onClick={() => setProgress(progress - 1)}
-                            >
-                                Go back
-                            </button>
-                            <button type="submit" className="btn btn-primary btn-block">
-                                {this.props.amount}
-                            </button>
-                            </> : null}
-
+                            {this.props.location === "/" ? (
+                                <>
+                                    <button
+                                        className="btn btn-primary btn-block"
+                                        onClick={() => setProgress(progress - 1)}
+                                    >
+                                        Go back
+                                    </button>
+                                    <button type="submit" className="btn btn-primary btn-block">
+                                        {this.props.amount}
+                                    </button>
+                                </>
+                            ) : null}
                         </div>
                     </form>
                 </CardBoxes>

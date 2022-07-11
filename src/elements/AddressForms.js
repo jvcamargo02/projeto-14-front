@@ -20,8 +20,10 @@ export default function AddressForms() {
     function confirmPurchase(e) {
         e.preventDefault();
 
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+
         const promise = axios.post(
-            "http://localhost:5000/shopping-cart/checkout",
+            `${API_BASE_URL}/shopping-cart/checkout`,
             { address, city, state, zip, description },
             {
                 headers: { Authorization: `Bearer ${token}` }

@@ -5,6 +5,8 @@ import UserContext from "../../../contexts/UserContext";
 
 export default function FormUserData() {
     const { progress, setProgress, userData, setUserData } = useContext(UserContext);
+    const userAddress = userData.userAddress
+    console.log(userData)
 
     const onSubmit = (e) => {
         e.preventDefault()
@@ -13,41 +15,52 @@ export default function FormUserData() {
 
     return (
         <Form onSubmit={(e) => onSubmit(e)}>
-            <label>Name</label>
+            <label>Address</label>
             <input
                 required
                 type="text"
-                id="name"
-                placeholder="Name"
-                value={userData.name}
+                id="adress"
+                placeholder="Address"
+                value={userData.userAddress.address}
                 onChange={(e) =>
-                    setUserData({ ...userData, name: e.target.value })
+                    setUserData({ ...userData, userAddress: {...userAddress, address: e.target.value }})
                 }
             />
-            <label>E-mail</label>
+            <label>City</label>
             <input
                 required
-                type="email"
-                id="email"
-                placeholder="Enter e-mail"
-                value={userData.email}
+                type="text"
+                id="city"
+                placeholder="City"
+                value={userData.userAddress.city}
                 onChange={(e) =>
-                    setUserData({ ...userData, email: e.target.value })
+                    setUserData({ ...userData, userAddress: {...userAddress, city: e.target.value }})
                 }
             />
-            <label>Password</label>
+            <label>State</label>
             <input
                 required
-                type="password"
-                id="password"
-                placeholder="Password"
-                value={userData.password}
+                type="text"
+                id="state"
+                placeholder="State"
+                value={userData.userAddress.state}
                 onChange={(e) =>
-                    setUserData({ ...userData, password: e.target.value })
+                    setUserData({ ...userData, userAddress: {...userAddress, state: e.target.value }})
+                }
+            />
+            <label>Zip-Code</label>
+            <input
+                required
+                type="text"
+                id="zip"
+                placeholder="Zipcode"
+                value={userData.userAddress.zip}
+                onChange={(e) =>
+                    setUserData({ ...userData, userAddress: {...userAddress, zip: e.target.value }})
                 }
             />
             <Buttons>
-                <Button variant="light" onClick={() => setProgress(0)}>
+                <Button variant="light" onClick={() => setProgress(progress-1)}>
                     Go Back
                 </Button>
                 <Button variant="dark" type="submit">

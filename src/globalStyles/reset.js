@@ -59,6 +59,12 @@ table {
 		max-width: 400px;
 	}
 	}
+
+	.card-footer{
+		text-align: center;
+		margin-top: 5px;
+		font-weight: 700;
+	}
 }
 
 body{

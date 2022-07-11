@@ -10,6 +10,7 @@ import ShoppingCart from "../elements/ShoppingCart";
 import Configs from "../elements/Configs";
 import logoImg from "../assets/logo.png";
 import UserContext from "../contexts/UserContext";
+import ConfirmPassword from "../elements/ConfirmPassword";
 
 export default function UserPage() {
     const navigate = useNavigate();
@@ -17,6 +18,7 @@ export default function UserPage() {
     const [isCartVisible, setIsCartVisible] = useState(false);
     const [isConfigsVisible, setIsConfigsVisible] = useState(false);    
     const { token, userData, setUserData } = useContext(UserContext)
+    const [smShow, setSmShow] = useState(false);
 
     function setConfig () {
         const API_BASE_URL =
@@ -25,12 +27,11 @@ export default function UserPage() {
             headers: { Authorization: `Bearer ${token}` },
         });
 
-        console.log("enviei a promisse")
         promise.then((res) => {
             console.log(res.data)
             const {name, email, capsules, selectPlanId, userAddress, userPaymentData} = res.data;
             const {cardName, expiry, number} = userPaymentData
-            setUserData({...userData, name, email, capsules, selectPlanId, userAddress, userPaymentData: {...userData.userPaymentData, cardName, expiry, number}});
+            setUserData({...userData, name, email, capsules, selectPlanId, validation: res.data.validation, userAddress, userPaymentData: {...userData.userPaymentData, cardName, expiry, number}});
             setIsConfigsVisible(true)
         });
     }
@@ -45,7 +46,8 @@ export default function UserPage() {
                 </div>
             </Header>
             {isCartVisible && <ShoppingCart setIsCartVisible={setIsCartVisible} />}
-            {isConfigsVisible && <Configs setIsConfigsVisible={setIsConfigsVisible} />}
+            {isConfigsVisible && <Configs setIsConfigsVisible={setIsConfigsVisible} setSmShow={setSmShow}/>}
+            <ConfirmPassword smShow={smShow} setSmShow={setSmShow}/>
             <ProductsList />
         </>
     );

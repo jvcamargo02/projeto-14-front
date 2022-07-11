@@ -4,9 +4,9 @@ import CardGroup from "react-bootstrap/CardGroup";
 import CardRender from "./Card";
 import UserContext from "../../../contexts/UserContext";
 import Form from "react-bootstrap/Form";
-import coffee from "../../../assets/coffe.svg"
+import coffee from "../../../assets/coffe.svg";
 
-export default function PlansCards({setAmount}) {
+export default function PlansCards({ setAmount }) {
     const { userData, setUserData } = useContext(UserContext);
     const cardsBody = [
         {
@@ -15,7 +15,7 @@ export default function PlansCards({setAmount}) {
             cardImg:
                 "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
             cardContent: "Receive our products weekly for a semester.",
-            cardFooter: `$${(70 + userData.capsules * 6.3).toFixed(1)} - 60% OFF`,
+            cardFooter: `$${(70 + userData.capsules * 6.3).toFixed(1)} - 60% OFF`
         },
         {
             id: 2,
@@ -23,7 +23,7 @@ export default function PlansCards({setAmount}) {
             cardImg:
                 "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
             cardContent: "Receive our products weekly for a quarter.",
-            cardFooter: `$${(45 + userData.capsules * 6.3).toFixed(1)} - 25% OFF`,
+            cardFooter: `$${(45 + userData.capsules * 6.3).toFixed(1)} - 25% OFF`
         },
         {
             id: 3,
@@ -31,8 +31,8 @@ export default function PlansCards({setAmount}) {
             cardImg:
                 "https://static1.conquistesuavida.com.br/articles//7/73/07/@/23387-qual-e-o-melhor-tipo-de-cafe-para-voce-t-article_block_media-3.jpg",
             cardContent: "Receive our products weekly for a month.",
-            cardFooter: `$${(19.9 + userData.capsules * 6.3).toFixed(1)}`,
-        },
+            cardFooter: `$${(19.9 + userData.capsules * 6.3).toFixed(1)}`
+        }
     ];
 
     return (
@@ -41,23 +41,21 @@ export default function PlansCards({setAmount}) {
                 <h1>How many capsules do you use per week?</h1>
                 <main>
                     <img src={coffee} alt="Coffee" />
-                <Form.Label>{userData.capsules}</Form.Label>
-                <Form.Range
-                    onChange={(e) =>
-                        setUserData({ ...userData, capsules: e.target.value })
-                    }
-                    min="3"
-                    max="30"
-                />
+                    <Form.Label>{userData.capsules}</Form.Label>
+                    <Form.Range
+                        onChange={(e) =>
+                            setUserData({ ...userData, capsules: Number(e.target.value) })
+                        }
+                        min="3"
+                        max="30"
+                    />
                 </main>
             </Capsules>
-            <hr/>
+            <hr />
             <CardGroup>
                 {cardsBody.map((card, index) => (
                     <CardRender
-                        isChecked={
-                            userData.selectPlanId === card.id ? true : false
-                        }
+                        isChecked={userData.selectPlanId === card.id ? true : false}
                         card={card}
                         key={index}
                         setAmount={setAmount}
@@ -89,11 +87,7 @@ const Container = styled.div`
         width: 300px;
         height: 8px;
         background: rgb(0, 0, 0);
-        background: linear-gradient(
-            90deg,
-            rgba(0, 0, 0, 1) 3%,
-            rgba(61, 13, 13, 1) 68%
-        );
+        background: linear-gradient(90deg, rgba(0, 0, 0, 1) 3%, rgba(61, 13, 13, 1) 68%);
         border: none;
         border-radius: 3px;
     }
@@ -121,31 +115,30 @@ const Capsules = styled.div`
     margin-bottom: 10px;
     position: relative;
 
-    main{
+    main {
         display: flex;
         flex-direction: column;
         align-items: center;
         justify-content: center;
     }
 
-    h1{
+    h1 {
         width: 25%;
         font-size: 18px;
         font-weight: 600;
-
     }
 
-    input{
+    input {
         margin-left: auto;
     }
 
-    img{
+    img {
         width: 80px;
         position: relative;
         margin-top: 5px;
     }
 
-    label{
+    label {
         position: absolute;
         display: flex;
         align-items: center;
@@ -156,13 +149,12 @@ const Capsules = styled.div`
         font-weight: 700;
     }
 
-    @media (max-width:500px){
+    @media (max-width: 500px) {
         flex-direction: column;
 
-        h1{
+        h1 {
             width: 200px;
             text-align: center;
         }
     }
-
-`
+`;

@@ -14,8 +14,6 @@ export default function ShoppingCart(props) {
     const { token } = useContext(UserContext);
     const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
 
-    console.log(shoppingCartList);
-
     const [limit, setLimit] = useState(0);
 
     useEffect(() => {
@@ -53,7 +51,7 @@ export default function ShoppingCart(props) {
         <Cart size="xl" show fullscreen={"lg-down"} onHide={() => setIsCartVisible(false)}>
             <Modal.Header closeButton>
                 <Modal.Title className="d-flex justify-content-between w-100">
-                    <p>Select max {limit} products.</p>
+                    <p>Select max {limit} products</p>
                     <Button variant="success" className="mx-3" onClick={confirmPurchase}>
                         Confirm Purchase
                     </Button>
@@ -118,7 +116,7 @@ function SelectedProduct(props) {
     }
 
     return (
-        <Product className="col-lg">
+        <Product className="col-lg my-3">
             <Card>
                 <Card.Img variant="top" src={product.imgURL} />
                 <Card.Body>

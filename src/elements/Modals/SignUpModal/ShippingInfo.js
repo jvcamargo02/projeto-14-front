@@ -5,13 +5,12 @@ import UserContext from "../../../contexts/UserContext";
 
 export default function FormUserData() {
     const { progress, setProgress, userData, setUserData } = useContext(UserContext);
-    const userAddress = userData.userAddress
-    console.log(userData)
+    const userAddress = userData.userAddress;
 
     const onSubmit = (e) => {
-        e.preventDefault()
-        setProgress(progress+1)
-    }
+        e.preventDefault();
+        setProgress(progress + 1);
+    };
 
     return (
         <Form onSubmit={(e) => onSubmit(e)}>
@@ -23,7 +22,10 @@ export default function FormUserData() {
                 placeholder="Address"
                 value={userData.userAddress.address}
                 onChange={(e) =>
-                    setUserData({ ...userData, userAddress: {...userAddress, address: e.target.value }})
+                    setUserData({
+                        ...userData,
+                        userAddress: { ...userAddress, address: e.target.value }
+                    })
                 }
             />
             <label>City</label>
@@ -34,7 +36,10 @@ export default function FormUserData() {
                 placeholder="City"
                 value={userData.userAddress.city}
                 onChange={(e) =>
-                    setUserData({ ...userData, userAddress: {...userAddress, city: e.target.value }})
+                    setUserData({
+                        ...userData,
+                        userAddress: { ...userAddress, city: e.target.value }
+                    })
                 }
             />
             <label>State</label>
@@ -45,7 +50,10 @@ export default function FormUserData() {
                 placeholder="State"
                 value={userData.userAddress.state}
                 onChange={(e) =>
-                    setUserData({ ...userData, userAddress: {...userAddress, state: e.target.value }})
+                    setUserData({
+                        ...userData,
+                        userAddress: { ...userAddress, state: e.target.value }
+                    })
                 }
             />
             <label>Zip-Code</label>
@@ -56,11 +64,14 @@ export default function FormUserData() {
                 placeholder="Zipcode"
                 value={userData.userAddress.zip}
                 onChange={(e) =>
-                    setUserData({ ...userData, userAddress: {...userAddress, zip: e.target.value }})
+                    setUserData({
+                        ...userData,
+                        userAddress: { ...userAddress, zip: e.target.value }
+                    })
                 }
             />
             <Buttons>
-                <Button variant="light" onClick={() => setProgress(progress-1)}>
+                <Button variant="light" onClick={() => setProgress(progress - 1)}>
                     Go Back
                 </Button>
                 <Button variant="dark" type="submit">

@@ -1,11 +1,9 @@
 import styled from "styled-components";
 import { Button, Card, Col, Container, Row } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-
 import selectProductImg from "../assets/select-product.jpg";
 import coffeeDeliveryImg from "../assets/coffee-delivery.jpg";
 import drinkCoffeeImg from "../assets/drink-coffee.jpg";
-
 export default function HowItWorks() {
     const navigate = useNavigate();
 

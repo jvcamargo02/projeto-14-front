@@ -16,7 +16,6 @@ export default function LoginPage() {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [checkBox, setCheckBox] = useState("");
-    config()
 
     function success(response) {
         if (checkBox === "on") {

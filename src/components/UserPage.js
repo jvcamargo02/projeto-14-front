@@ -1,6 +1,6 @@
 import styled from "styled-components";
-import { useState, useContext }from "react";
-import axios from "axios"
+import { useState, useContext } from "react";
+import axios from "axios";
 import { BiUserCircle } from "react-icons/bi";
 import { TiShoppingCart } from "react-icons/ti";
 import { useNavigate } from "react-router-dom";
@@ -15,23 +15,28 @@ export default function UserPage() {
     const navigate = useNavigate();
 
     const [isCartVisible, setIsCartVisible] = useState(false);
-    const [isConfigsVisible, setIsConfigsVisible] = useState(false);    
-    const { token, userData, setUserData } = useContext(UserContext)
+    const [isConfigsVisible, setIsConfigsVisible] = useState(false);
+    const { token, userData, setUserData } = useContext(UserContext);
 
-    function setConfig () {
-        const API_BASE_URL =
-            process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
-        const promise = axios.get(`http://localhost:5000/user-config`, {
-            headers: { Authorization: `Bearer ${token}` },
+    function setConfig() {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const promise = axios.get(`${API_BASE_URL}/user-config`, {
+            headers: { Authorization: `Bearer ${token}` }
         });
 
-        console.log("enviei a promisse")
         promise.then((res) => {
-            console.log(res.data)
-            const {name, email, capsules, selectPlanId, userAddress, userPaymentData} = res.data;
-            const {cardName, expiry, number} = userPaymentData
-            setUserData({...userData, name, email, capsules, selectPlanId, userAddress, userPaymentData: {...userData.userPaymentData, cardName, expiry, number}});
-            setIsConfigsVisible(true)
+            const { name, email, capsules, selectPlanId, userAddress, userPaymentData } = res.data;
+            const { cardName, expiry, number } = userPaymentData;
+            setUserData({
+                ...userData,
+                name,
+                email,
+                capsules,
+                selectPlanId,
+                userAddress,
+                userPaymentData: { ...userData.userPaymentData, cardName, expiry, number }
+            });
+            setIsConfigsVisible(true);
         });
     }
 

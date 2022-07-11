@@ -25,16 +25,17 @@ export default function Navbar() {
     }
 
     function connectedUser() {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const credentials = JSON.parse(userDataString);
 
         if (credentials !== null) {
-            const promisse = axios.post("http://localhost:5000/login", {
+            const promisse = axios.post(`${API_BASE_URL}/login`, {
                 email: credentials.email,
-                password: credentials.password,
+                password: credentials.password
             });
             promisse.then((response) => successLoggedUser(response.data));
         }
-        setSmShow(true)
+        setSmShow(true);
     }
 
     return (
@@ -45,9 +46,7 @@ export default function Navbar() {
 
                 <NavbarDesktop>
                     <span>Our plans</span>
-                    <span onClick={() => navigate("/how-it-works")}>
-                        How it works
-                    </span>
+                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span onClick={() => connectedUser()}>Login</span>
                 </NavbarDesktop>
@@ -61,9 +60,7 @@ export default function Navbar() {
                 <main>
                     <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
                     <span>Our plans</span>
-                    <span onClick={() => navigate("/how-it-works")}>
-                        How it works
-                    </span>
+                    <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span onClick={() => connectedUser()}>Login</span>
                     <p>Follow us</p>
@@ -75,7 +72,7 @@ export default function Navbar() {
                     </social-media>
                 </main>
             </MobileMain>
-            <SignUpModal lgShow={lgShow} setLgShow={setLgShow} setSmShow={setSmShow}/>
+            <SignUpModal lgShow={lgShow} setLgShow={setLgShow} setSmShow={setSmShow} />
             <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );
@@ -92,11 +89,7 @@ const DesktopMain = styled.div`
     z-index: 1;
     padding: 0 40px;
     background: rgb(255, 255, 255);
-    background: linear-gradient(
-        180deg,
-        rgba(0, 0, 0, 0.3) 0%,
-        rgba(255, 255, 255, 0) 100%
-    );
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0.3) 0%, rgba(255, 255, 255, 0) 100%);
     color: #fff;
 
     img {

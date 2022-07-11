@@ -16,6 +16,12 @@ export default function PurchasePage() {
             alert("You have not selected any product. Redirecting...");
             navigate("/user", { replace: true });
         }
+
+        const locallyStoredToken = localStorage.getItem("token");
+
+        if (locallyStoredToken === null) {
+            navigate("/", { replace: true });
+        }
     });
 
     return (

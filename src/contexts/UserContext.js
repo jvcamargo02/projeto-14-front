@@ -20,6 +20,13 @@ export function UserContextProvider(props) {
         email: "",
         password: "",
         selectPlanId: "",
+        capsules: "7",
+        userAddress: {
+            address: "",
+            city: "",
+            state: "",
+            zip: "",
+        },
         userPaymentData: {
             number: "",
             cardName: "",
@@ -32,7 +39,14 @@ export function UserContextProvider(props) {
 
     return (
         <UserContext.Provider
-            value={{ userData, setUserData, progress, setProgress, token, setToken }}
+            value={{
+                userData,
+                setUserData,
+                progress,
+                setProgress,
+                token,
+                setToken,
+            }}
         >
             {children}
         </UserContext.Provider>

@@ -90,7 +90,7 @@ export default class App extends React.Component {
             promisse.then(() => setProgress(progress + 1));
             promisse.catch((e) => advice(e.response.data));
         }
-
+        console.log(this.props)
         return (
             <div key="Payment">
                 <CardBoxes className="App-payment">
@@ -186,7 +186,7 @@ export default class App extends React.Component {
                                 type="submit"
                                 className="btn btn-primary btn-block"
                             >
-                                PAY
+                                {this.props.amount}
                             </button>
                         </div>
                     </form>

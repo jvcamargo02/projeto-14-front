@@ -4,17 +4,25 @@ import Footer from "../elements/Footer";
 import FAQ from "../elements/FAQ";
 import HowItWorks from "../elements/HowItWorks";
 
+
 export default function HowItWorksPage() {
     return (
         <>
             <Navbar />
+            <Container>
             <Title>How it Works</Title>
             <HowItWorks />
             <FAQ />
             <Footer />
+            </Container>
         </>
     );
 }
+
+const Container = styled.div`
+    padding-top: 60px;
+
+`
 
 const Title = styled.h1`
     padding: 20px;

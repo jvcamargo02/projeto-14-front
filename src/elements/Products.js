@@ -2,7 +2,9 @@ import axios from "axios";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { Button, Container, Card, Col, Row } from "react-bootstrap";
+import { BsReceiptCutoff } from "react-icons/bs";
 import { ImCheckmark2 } from "react-icons/im";
+import { MdOutlineAddShoppingCart, MdDeliveryDining } from "react-icons/md";
 
 import UserContext from "../contexts/UserContext";
 import ShoppingCartContext from "../contexts/ShoppingCartContext";
@@ -35,6 +37,37 @@ export default function ProductsList() {
 
     return (
         <div className="album py-5 bg-light">
+            <Instructions className="px-4">
+                <h1 class="pb-2 border-bottom">Welcome!</h1>
+                <Row className="pt-4 pb-5 row-cols-1 row-cols-lg-3">
+                    <Col className="px-4">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+                            <MdOutlineAddShoppingCart />
+                        </div>
+                        <h2>Choose your products</h2>
+                        <p>
+                            Select which products you want to recieve this week and adjust the
+                            quantinty in your shopping cart.
+                        </p>
+                    </Col>
+                    <Col className="px-4">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+                            <BsReceiptCutoff />
+                        </div>
+                        <h2>Confirm your order</h2>
+                        <p>Verify your order details and confirm your shipping address.</p>
+                    </Col>
+                    <Col className="px-4">
+                        <div class="feature-icon d-inline-flex align-items-center justify-content-center bg-primary bg-gradient text-white fs-2 mb-3">
+                            <MdDeliveryDining />
+                        </div>
+                        <h2>Wait for delivery</h2>
+                        <p>
+                            The next step is on us! We will deliver your products directly to you.
+                        </p>
+                    </Col>
+                </Row>
+            </Instructions>
             <Container>
                 <Row sm={2} lg={4} className={"row-cols-1"}>
                     {productsList.map((product) => {
@@ -86,7 +119,7 @@ function Product(props) {
     }
 
     return (
-        <Col>
+        <Col className="my-2">
             <ProductContent>
                 <Card.Img variant="top" src={product.imgURL} />
                 <Card.Body>
@@ -106,7 +139,27 @@ function Product(props) {
     );
 }
 
+const Instructions = styled(Container)`
+    .feature-icon {
+        width: 4rem;
+        height: 4rem;
+        border-radius: 0.75rem;
+    }
+
+    h1 {
+        font-size: 34px;
+        font-weight: 700;
+    }
+
+    h2 {
+        font-size: 24px;
+        font-weight: 700;
+    }
+`;
+
 const ProductContent = styled(Card)`
+    height: 100%;
+
     img {
         height: 160px;
         width: 100%;

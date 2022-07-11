@@ -6,28 +6,26 @@ import {
     BiHome,
     BiCoffeeTogo,
     BiUserX,
-    BiCreditCard
+    BiCreditCard,
 } from "react-icons/bi";
+import dayjs from "dayjs";
 import { useState, useContext } from "react";
-import { useLocation } from "react-router-dom";
+
 import UserContext from "../contexts/UserContext";
 import Button from "react-bootstrap/Button";
+import Alert from "react-bootstrap/Alert";
 import PlansCards from "./Modals/SignUpModal/PlansCards";
 import PaymentModal from "./Modals/SignUpModal/PaymentModal";
 
 export default function Configs(props) {
-    const { setIsConfigsVisible } = props;
-    const { userData, setUserData } = useContext(UserContext);
+    const { setIsConfigsVisible, setSmShow } = props;
+    const { userData, setUserData, newPassword, setNewPassword } = useContext(UserContext)
     const [disabled, setDisabled] = useState("disabled");
     const [button, setButton] = useState("Edit");
     const [amount, setAmount] = useState("Save");
-    console.log(userData);
+    const isValid = dayjs().isAfter(userData.validation);
 
     const userAddress = userData.userAddress;
-
-    const onSubmit = (e) => {
-        e.preventDefault();
-    };
 
     const edit = (e) => {
         e.preventDefault();
@@ -39,14 +37,10 @@ export default function Configs(props) {
 
         if (button === "Save") {
             setDisabled("disabled");
-            console.log("TEM QUE DAR UM PUT");
+            setSmShow(true)
             setButton("Edit");
         }
     };
-
-    const location = useLocation()
-
-    console.log(location)
 
     return (
         <Configurations
@@ -103,17 +97,13 @@ export default function Configs(props) {
                                 />
                                 <label>Password</label>
                                 <input
-                                    required
                                     disabled={disabled}
                                     type="password"
                                     id="password"
                                     placeholder="Password"
-                                    value={userData.password}
+                                    value={newPassword}
                                     onChange={(e) =>
-                                        setUserData({
-                                            ...userData,
-                                            password: e.target.value,
-                                        })
+                                        setNewPassword(e.target.value)
                                     }
                                 />
                                 <Buttons>
@@ -214,7 +204,9 @@ export default function Configs(props) {
                                 <Buttons>
                                     <Button
                                         variant="light"
-                                        onClick={() => console.log("back")}
+                                        onClick={() =>
+                                            setIsConfigsVisible(false)
+                                        }
                                     >
                                         Go Back
                                     </Button>
@@ -231,11 +223,23 @@ export default function Configs(props) {
                             <p>Your Plans</p>
                         </Accordion.Header>
                         <Accordion.Body>
+                            {isValid === false ? (
+                                <Alert variant="info">
+                                    Your plan is valid until{" "}
+                                    {userData.validation}. When choosing a new
+                                    plan, the remaining time will be added to
+                                    the time of the chosen plan.
+                                </Alert>
+                            ) : (
+                                <Alert variant="danger">
+                                    Your plan expired in {userData.validation}.
+                                </Alert>
+                            )}
                             <PlansCards setAmount={setAmount} />
                             <Buttons>
                                 <Button
                                     variant="light"
-                                    onClick={() => console.log("back")}
+                                    onClick={() => setIsConfigsVisible(false)}
                                 >
                                     Go Back
                                 </Button>
@@ -251,11 +255,11 @@ export default function Configs(props) {
                             <p>Payment Info</p>
                         </Accordion.Header>
                         <Accordion.Body>
-                            <PaymentModal amount={amount}/>
+                            <PaymentModal amount={amount} />
                             <Buttons>
                                 <Button
                                     variant="light"
-                                    onClick={() => console.log("back")}
+                                    onClick={() => setIsConfigsVisible(false)}
                                 >
                                     Go Back
                                 </Button>

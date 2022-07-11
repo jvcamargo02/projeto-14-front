@@ -37,6 +37,9 @@ export function UserContextProvider(props) {
 
     const [progress, setProgress] = useState(0);
 
+    const [newPassword, setNewPassword] = useState("")
+   
+
     return (
         <UserContext.Provider
             value={{
@@ -45,7 +48,9 @@ export function UserContextProvider(props) {
                 progress,
                 setProgress,
                 token,
-                setToken
+                setToken,
+                newPassword,
+                setNewPassword
             }}
         >
             {children}

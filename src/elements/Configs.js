@@ -5,6 +5,8 @@ import { BiUser, BiUserCircle } from "react-icons/bi";
 export default function Configs(props) {
     const { setIsConfigsVisible } = props;
 
+    
+
     return (
         <Configurations
             size="xl"

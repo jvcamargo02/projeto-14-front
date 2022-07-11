@@ -10,7 +10,7 @@ import ShoppingCartContext from "../contexts/ShoppingCartContext";
 export default function ProductsList() {
     const { token } = useContext(UserContext);
     const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
-
+console.log(token)
     useEffect(() => {
         const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
         const promise = axios.get(`${API_BASE_URL}/shopping-cart`, {

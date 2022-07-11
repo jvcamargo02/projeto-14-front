@@ -8,7 +8,7 @@ import UserContext from "../../../contexts/UserContext";
 import FormUserData from "./FormUserData";
 import ShippingInfo from "./ShippingInfo"
  
-export default function SignUpModal({ lgShow, setLgShow }) {
+export default function SignUpModal({ lgShow, setLgShow, setSmShow }) {
     const { progress } = useContext(UserContext);
     const [amount, setAmount] = useState("")
 
@@ -46,7 +46,7 @@ export default function SignUpModal({ lgShow, setLgShow }) {
             case 3:
                 return <PaymentModal amount={amount}/>;
             case 4:
-                return <SuccessModal />;
+                return <SuccessModal setSmShow={setSmShow} setLgShow={setLgShow}/>;
         }
     }
 

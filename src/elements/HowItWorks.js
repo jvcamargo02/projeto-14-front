@@ -11,7 +11,8 @@ export default function HowItWorks() {
 
     return (
         <>
-            <Album className="album py-5 bg-light">
+        <hr/>
+            <Album className="album py-5">
                 <Container className="px-4">
                     <Row className="row-cols-1 g-3">
                         <Col className="col-md px-5">
@@ -27,7 +28,7 @@ export default function HowItWorks() {
                                         aliqua.
                                     </Card.Text>
                                     <Button
-                                        variant="outline-success"
+                                        variant="light"
                                         active
                                         onClick={() => navigate("/")}
                                     >
@@ -39,6 +40,7 @@ export default function HowItWorks() {
                     </Row>
                 </Container>
             </Album>
+            <hr/>
             <Album className="album py-5">
                 <Container className="px-4">
                     <Row className="row-cols-1 g-3">
@@ -46,7 +48,7 @@ export default function HowItWorks() {
                             <img src={coffeeDeliveryImg} alt="delivering coffee to client's home" />
                         </Col>
                         <Col className="col-md px-5" lg={{ order: "first" }}>
-                            <Card>
+                            <Card >
                                 <Card.Body>
                                     <Card.Title>2. Get your delivery</Card.Title>
                                     <Card.Text>
@@ -55,7 +57,7 @@ export default function HowItWorks() {
                                         aliqua.
                                     </Card.Text>
                                     <Button
-                                        variant="outline-success"
+                                        variant="light"
                                         active
                                         onClick={() => navigate("/")}
                                     >
@@ -67,7 +69,8 @@ export default function HowItWorks() {
                     </Row>
                 </Container>
             </Album>
-            <Album className="album py-5 bg-light">
+            <hr/>
+            <Album className="album py-5">
                 <Container className="px-4">
                     <Row className="row-cols-1 g-3">
                         <Col className="col-md px-5">
@@ -83,7 +86,7 @@ export default function HowItWorks() {
                                         aliqua.
                                     </Card.Text>
                                     <Button
-                                        variant="outline-success"
+                                        variant="light"
                                         active
                                         onClick={() => navigate("/")}
                                     >
@@ -95,6 +98,7 @@ export default function HowItWorks() {
                     </Row>
                 </Container>
             </Album>
+            <hr/>
         </>
     );
 }

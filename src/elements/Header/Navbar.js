@@ -75,7 +75,7 @@ export default function Navbar() {
                     </social-media>
                 </main>
             </MobileMain>
-            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow} />
+            <ChoosePlan lgShow={lgShow} setLgShow={setLgShow} setSmShow={setSmShow}/>
             <LoginModal smShow={smShow} setSmShow={setSmShow} />
         </>
     );

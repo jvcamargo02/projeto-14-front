@@ -21,6 +21,15 @@ export default function HowItWorksPage() {
 
 const Container = styled.div`
     padding-top: 60px;
+    color: #FFF;
+    background: rgb(0, 0, 0);
+    background: linear-gradient(
+        180deg,
+        rgba(0, 0, 0, 1) 3%,
+        rgba(30, 19, 15, 1) 33%,
+        rgba(46, 32, 28, 1) 66%,
+        rgba(59, 42, 36, 1) 90%
+    );
 
 `
 

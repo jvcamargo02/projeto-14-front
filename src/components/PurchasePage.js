@@ -1,16 +1,45 @@
+import axios from "axios";
 import styled from "styled-components";
-import { useContext } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Button, Container, Row, Card } from "react-bootstrap";
 
-import ShoppingCartList from "../contexts/ShoppingCartContext";
+import UserContext from "../contexts/UserContext";
+import ShoppingCartListContext from "../contexts/ShoppingCartContext";
+import SuccessModel from "../elements/SuccessModel";
+import ErrorModel from "../elements/ErrorModel";
 import logoImg from "../assets/logo.png";
 
 export default function PurchasePage() {
     const navigate = useNavigate();
-    const { shoppingCartList } = useContext(ShoppingCartList);
+    const { token } = useContext(UserContext);
+    const { shoppingCartList } = useContext(ShoppingCartListContext);
 
-    // coletar endereço de entrega padrão do usuário e colocar dentro dos inputs dos forms
+    const [result, setResult] = useState(null);
+
+    useEffect(() => {
+        if (shoppingCartList.length === 0) {
+            alert("You have not selected any product. Redirecting...");
+            navigate("/user");
+        }
+    });
+
+    function confirmPurchase() {
+        const promise = axios.post(
+            "http://localhost:5000/shopping-cart/checkout",
+            {},
+            {
+                headers: { Authorization: `Bearer ${token}` }
+            }
+        );
+
+        promise.then(() => {
+            setResult(<SuccessModel />);
+        });
+        promise.catch((err) => {
+            setResult(<ErrorModel errorMessage={err.response.data} />);
+        });
+    }
 
     return (
         <>
@@ -34,8 +63,11 @@ export default function PurchasePage() {
                         </Card>
                     ))}
                 </Row>
-                <Button variant="success">Send order</Button>
+                <Button variant="success" onClick={confirmPurchase}>
+                    Send order
+                </Button>
             </Purchase>
+            {result}
         </>
     );
 }

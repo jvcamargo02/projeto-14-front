@@ -22,7 +22,7 @@ export default function LoginPage() {
             localStorage.setItem("userCredentials", credentials);
         }
 
-        setToken(response.token);
+        setToken(response);
         navigate("/user");
     }
 
@@ -32,7 +32,7 @@ export default function LoginPage() {
 
         const promisse = axios.post("http://localhost:5000/login", {
             email,
-            password,
+            password
         });
 
         promisse.then((response) => success(response.data));

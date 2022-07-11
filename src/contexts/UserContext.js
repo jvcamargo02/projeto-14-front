@@ -20,12 +20,12 @@ export function UserContextProvider(props) {
         email: "",
         password: "",
         selectPlanId: "",
-        capsules: "7",
+        capsules: 7,
         userAddress: {
             address: "",
             city: "",
             state: "",
-            zip: "",
+            zip: ""
         },
         userPaymentData: {
             number: "",
@@ -45,7 +45,7 @@ export function UserContextProvider(props) {
                 progress,
                 setProgress,
                 token,
-                setToken,
+                setToken
             }}
         >
             {children}

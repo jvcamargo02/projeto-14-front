@@ -9,7 +9,7 @@ export default function HowItWorksPage() {
         <>
             <Navbar />
             <Container>
-                <Title className="bg-dark text-white">How it Works</Title>
+                <Title className="text-white">How it Works</Title>
                 <HowItWorks />
                 <FAQ />
                 <Footer />

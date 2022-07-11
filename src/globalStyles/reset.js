@@ -65,6 +65,10 @@ table {
 		margin-top: 5px;
 		font-weight: 700;
 	}
+
+	.accordion{
+		color: #000
+	}
 }
 
 body{

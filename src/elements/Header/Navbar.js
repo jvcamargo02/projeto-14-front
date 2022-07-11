@@ -1,6 +1,7 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import Modal from "react-bootstrap/Modal";
 import { useNavigate } from "react-router-dom";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { BsFacebook, BsInstagram, BsTwitter } from "react-icons/bs";
@@ -10,12 +11,14 @@ import SignUpModal from "../Modals/SignUpModal/SignUpModal";
 import LoginModal from "../Modals/LoginModal/LoginModal";
 import logoImg from "../../assets/logo.png";
 import UserContext from "../../contexts/UserContext";
+import PlansCards from "../Modals/SignUpModal/PlansCards"
 
-export default function Navbar() {
+export default function Navbar({lgShow, setLgShow}) {
     const navigate = useNavigate();
     const userDataString = localStorage.getItem("userCredentials");
     const { setToken } = useContext(UserContext);
-    const [lgShow, setLgShow] = useState(false);
+
+    const [plansShow, setPlansShow] = useState(false);
     const [smShow, setSmShow] = useState(false);
     const [toggle, setToggle] = useState(false);
 
@@ -45,7 +48,7 @@ export default function Navbar() {
                 <GiHamburgerMenu onClick={() => setToggle(!toggle)} />
 
                 <NavbarDesktop>
-                    <span>Our plans</span>
+                    <span onClick={() => setPlansShow(true)}>Our plans</span>
                     <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span onClick={() => connectedUser()}>Login</span>
@@ -59,7 +62,7 @@ export default function Navbar() {
 
                 <main>
                     <img src={logoImg} alt="Logo" onClick={() => navigate("/")} />
-                    <span>Our plans</span>
+                    <span onClick={() => setPlansShow(true)}>Our plans</span>
                     <span onClick={() => navigate("/how-it-works")}>How it works</span>
                     <span onClick={() => setLgShow(true)}>Sign up</span>
                     <span onClick={() => connectedUser()}>Login</span>
@@ -74,6 +77,21 @@ export default function Navbar() {
             </MobileMain>
             <SignUpModal lgShow={lgShow} setLgShow={setLgShow} setSmShow={setSmShow} />
             <LoginModal smShow={smShow} setSmShow={setSmShow} />
+            <Modal
+                size="lg"
+                show={plansShow}
+                centered
+                contentClassName="modal"
+                onHide={() => setPlansShow(false)}
+            >
+                <Modal.Header closeButton>
+                    <Modal.Title>Our Plans</Modal.Title>
+                </Modal.Header>
+                <Modal.Body>
+                    <PlansCards />
+
+                </Modal.Body>
+            </Modal>
         </>
     );
 }

@@ -1,13 +1,13 @@
 import styled from "styled-components";
 import { BsArrowRight } from "react-icons/bs";
 
-export default function Banner() {
+export default function Banner({setLgShow}) {
     return (
         <Container>
             <main>
                 <h1>A new day has arrived on Earth for coffee</h1>
                 <p>Incredibly delicious coffee made impossibly convenient.</p>
-                <button>
+                <button onClick={() => setLgShow(true)}>
                     Get started <BsArrowRight />
                 </button>
             </main>

@@ -1,3 +1,4 @@
+import {useState} from "react"
 import styled from "styled-components";
 import Navbar from "./Navbar";
 import SignUpModal from "../Modals/SignUpModal/SignUpModal";
@@ -5,11 +6,12 @@ import bannerImg from "../../assets/banner.gif";
 import Banner from "./Banner";
 
 export default function Header() {
+    const [lgShow, setLgShow] = useState(false);
     return (
         <Container>
-            <Navbar />
+            <Navbar  lgShow={lgShow} setLgShow={setLgShow}/>
             <SignUpModal />
-            <Banner />
+            <Banner setLgShow={setLgShow}/>
         </Container>
     );
 }

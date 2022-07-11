@@ -15,6 +15,7 @@ export default function CardRender({ card, setAmount}) {
     return (
         <Card
             onClick={selectCard}
+            disabled
             border={ userData.selectPlanId === card.id ? "success" :  ""}
             bg={ userData.selectPlanId === card.id ? "dark" : "" }
             text={userData.selectPlanId === card.id ?  "light" : "dark"}

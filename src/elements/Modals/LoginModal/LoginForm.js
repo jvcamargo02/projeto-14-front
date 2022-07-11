@@ -28,7 +28,6 @@ export default function LoginPage() {
 
     function onSubmit(e) {
         e.preventDefault();
-        console.log("entrei");
 
         const promisse = axios.post("http://localhost:5000/login", {
             email,

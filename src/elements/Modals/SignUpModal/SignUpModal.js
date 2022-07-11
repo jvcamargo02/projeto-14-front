@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import styled from "styled-components";
+import { useLocation } from "react-router-dom";
 import Modal from "react-bootstrap/Modal";
 import PaymentModal from "./PaymentModal";
 import SuccessModal from "./SuccessModal";
@@ -7,10 +8,12 @@ import PlansCards from "./PlansCards";
 import UserContext from "../../../contexts/UserContext";
 import FormUserData from "./FormUserData";
 import ShippingInfo from "./ShippingInfo"
+
  
 export default function SignUpModal({ lgShow, setLgShow, setSmShow }) {
     const { progress } = useContext(UserContext);
     const [amount, setAmount] = useState("")
+    const location = useLocation()
 
     const modals = [
         {
@@ -44,7 +47,7 @@ export default function SignUpModal({ lgShow, setLgShow, setSmShow }) {
             case 2:
                 return <ShippingInfo />;
             case 3:
-                return <PaymentModal amount={amount}/>;
+                return <PaymentModal amount={amount} location={location.pathname}/>;
             case 4:
                 return <SuccessModal setSmShow={setSmShow} setLgShow={setLgShow}/>;
         }
@@ -77,5 +80,3 @@ const Container = styled.div`
         }
     }
 `;
-
-/*     const { userData, setUserData, progress, setProgress } = useContext(UserContext) */

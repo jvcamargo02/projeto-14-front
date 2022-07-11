@@ -13,7 +13,7 @@ export default function AddressForms() {
     const [address, setAddress] = useState(userData.userAddress.address);
     const [city, setCity] = useState(userData.userAddress.city);
     const [state, setState] = useState(userData.userAddress.state);
-    const [zipCode, setZipCode] = useState(userData.userAddress.zip);
+    const [zip, setZip] = useState(userData.userAddress.zip);
     const [description, setDescription] = useState("");
     const [result, setResult] = useState(null);
 
@@ -22,7 +22,7 @@ export default function AddressForms() {
 
         const promise = axios.post(
             "http://localhost:5000/shopping-cart/checkout",
-            { address, city, state, zipCode, description },
+            { address, city, state, zip, description },
             {
                 headers: { Authorization: `Bearer ${token}` }
             }
@@ -38,7 +38,7 @@ export default function AddressForms() {
 
     return (
         <>
-            <Form onSubmit={(e) => confirmPurchase(e)}>
+            <Form onSubmit={confirmPurchase}>
                 <h2>Shipping address</h2>
                 <label>Address</label>
                 <input
@@ -73,8 +73,8 @@ export default function AddressForms() {
                     type="text"
                     id="zip"
                     placeholder="Zipcode"
-                    value={zipCode}
-                    onChange={(e) => setZipCode(e.target.value)}
+                    value={zip}
+                    onChange={(e) => setZip(e.target.value)}
                 />
                 <label>
                     (Optional) Provide a description of destination to help in the delivery process
@@ -86,7 +86,9 @@ export default function AddressForms() {
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                 />
-                <Button variant="success">Send order</Button>
+                <Button variant="success" type="submit">
+                    Send order
+                </Button>
             </Form>
             {result}
         </>

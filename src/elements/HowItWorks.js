@@ -11,8 +11,10 @@ export default function HowItWorks() {
 
     return (
         <>
+
         <hr/>
             <Album className="album py-5">
+
                 <Container className="px-4">
                     <Row className="row-cols-1 g-3">
                         <Col className="col-md px-5">
@@ -20,12 +22,12 @@ export default function HowItWorks() {
                         </Col>
                         <Col className="col-md px-5">
                             <Card>
-                                <Card.Body>
+                                <Card.Body className="text-white">
                                     <Card.Title>1. Pick a Plan</Card.Title>
                                     <Card.Text>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                        do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua.
+                                        Whether you are a coffee or a tea person, we have a flexible
+                                        plan to match your lifestyle. Need to cancel, change
+                                        products, or skip a week? Not a problem.
                                     </Card.Text>
                                     <Button
                                         variant="light"
@@ -52,9 +54,8 @@ export default function HowItWorks() {
                                 <Card.Body>
                                     <Card.Title>2. Get your delivery</Card.Title>
                                     <Card.Text>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                        do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua.
+                                        Each week, you’ll choose from our diverse catalog of coffes
+                                        and tea which ones you would like to have delivered to you.
                                     </Card.Text>
                                     <Button
                                         variant="light"
@@ -71,6 +72,7 @@ export default function HowItWorks() {
             </Album>
             <hr/>
             <Album className="album py-5">
+
                 <Container className="px-4">
                     <Row className="row-cols-1 g-3">
                         <Col className="col-md px-5">
@@ -78,12 +80,12 @@ export default function HowItWorks() {
                         </Col>
                         <Col className="col-md px-5">
                             <Card>
-                                <Card.Body>
-                                    <Card.Title>3. Pour, drink, code</Card.Title>
+                                <Card.Body className="text-white">
+                                    <Card.Title>3. Pour, drink, enjoy!</Card.Title>
                                     <Card.Text>
-                                        Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed
-                                        do eiusmod tempor incididunt ut labore et dolore magna
-                                        aliqua.
+                                        Making great coffee is hard, but melting great coffee is
+                                        easy. Boiling great tea is equally easy to make. Peel back
+                                        the lid and drop it into a mug. Add water, and enjoy!
                                     </Card.Text>
                                     <Button
                                         variant="light"
@@ -126,13 +128,16 @@ const Album = styled.div`
 
         p,
         button {
-            font-size: 16px;
+            font-size: 18px;
+            font-weight: 500;
             text-align: center;
         }
     }
 
     .card-title {
         margin: 0;
+        font-size: 28px;
+        font-weight: 700;
     }
 
     img {

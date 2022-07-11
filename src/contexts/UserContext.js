@@ -5,7 +5,7 @@ const UserContext = createContext();
 export function UserContextProvider(props) {
     const { children } = props;
 
-    const [token, setToken] = useState("");
+    const [token, setToken] = useState("1154a7b6-0987-41c0-a804-1833eeec9281");
 
     const locallyStoredToken = localStorage.getItem("token");
 
@@ -31,8 +31,8 @@ export function UserContextProvider(props) {
             number: "",
             cardName: "",
             expiry: "",
-            cvc: "",
-        },
+            cvc: ""
+        }
     });
 
     const [progress, setProgress] = useState(0);

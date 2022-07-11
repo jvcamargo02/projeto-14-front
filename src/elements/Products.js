@@ -5,9 +5,21 @@ import { Button, Container, Card, Col, Row } from "react-bootstrap";
 import { ImCheckmark2 } from "react-icons/im";
 
 import UserContext from "../contexts/UserContext";
+import ShoppingCartContext from "../contexts/ShoppingCartContext";
 
 export default function ProductsList() {
     const { token } = useContext(UserContext);
+    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
+
+    useEffect(() => {
+        const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
+        const promise = axios.get(`${API_BASE_URL}/shopping-cart`, {
+            headers: { Authorization: `Bearer ${token}` }
+        });
+        promise.then((res) => {
+            setShoppingCartList(res.data.cart);
+        });
+    }, []);
 
     const [productsList, setProductsList] = useState([]);
 
@@ -24,9 +36,13 @@ export default function ProductsList() {
     return (
         <div className="album py-5 bg-light">
             <Container>
-                <Row sm={2} lg={4} className={"row-cols-1 g-3"}>
+                <Row sm={2} lg={4} className={"row-cols-1"}>
                     {productsList.map((product) => {
-                        return <Product key={product._id} product={product} />;
+                        const active = shoppingCartList.some(
+                            (item) => item.product._id === product._id
+                        );
+
+                        return <Product key={product._id} product={product} active={active} />;
                     })}
                 </Row>
             </Container>
@@ -35,10 +51,9 @@ export default function ProductsList() {
 }
 
 function Product(props) {
-    const { product } = props;
+    const { product, active } = props;
     const { token } = useContext(UserContext);
-
-    const [active, setActive] = useState(false);
+    const { shoppingCartList, setShoppingCartList } = useContext(ShoppingCartContext);
 
     function selectProduct() {
         const API_BASE_URL = process.env.REACT_APP_API_BASE_URL || "http://localhost:5000";
@@ -47,6 +62,14 @@ function Product(props) {
             axios.delete(`${API_BASE_URL}/shopping-cart/${product._id}`, {
                 headers: { Authorization: `Bearer ${token}` }
             });
+
+            const newShoppingCartList = shoppingCartList.filter(
+                (filtered) => filtered.product._id !== product._id
+            );
+
+            setShoppingCartList(newShoppingCartList);
+
+            return;
         } else {
             axios.post(
                 `${API_BASE_URL}/shopping-cart`,
@@ -55,9 +78,11 @@ function Product(props) {
                     headers: { Authorization: `Bearer ${token}` }
                 }
             );
-        }
 
-        setActive(!active);
+            const newShoppingCartList = [...shoppingCartList, { counter: 1, product }];
+
+            setShoppingCartList(newShoppingCartList);
+        }
     }
 
     return (
@@ -66,7 +91,7 @@ function Product(props) {
                 <Card.Img variant="top" src={product.imgURL} />
                 <Card.Body>
                     <div>
-                        <Card.Title>Card Title</Card.Title>
+                        <Card.Title>{product.name}</Card.Title>
                         <Button variant="outline-success" active={active} onClick={selectProduct}>
                             {active ? <ImCheckmark2 /> : "Add"}
                         </Button>
@@ -74,7 +99,7 @@ function Product(props) {
                     <Card.Text>{product.description}</Card.Text>
                 </Card.Body>
                 <Card.Footer>
-                    <small className="text-muted">Categorias</small>
+                    <small className="text-muted">{product.type}</small>
                 </Card.Footer>
             </ProductContent>
         </Col>
@@ -85,6 +110,7 @@ const ProductContent = styled(Card)`
     img {
         height: 160px;
         width: 100%;
+        object-fit: contain;
     }
 
     button {

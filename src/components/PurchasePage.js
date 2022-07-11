@@ -1,45 +1,22 @@
-import axios from "axios";
 import styled from "styled-components";
 import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Button, Container, Row, Card } from "react-bootstrap";
+import { Container, Row, Card } from "react-bootstrap";
 
-import UserContext from "../contexts/UserContext";
 import ShoppingCartListContext from "../contexts/ShoppingCartContext";
-import SuccessModal from "../elements/Modals/SuccessModal";
-import ErrorModal from "../elements/Modals/ErrorModal";
+import AddressForms from "../elements/AddressForms";
 import logoImg from "../assets/logo.png";
 
 export default function PurchasePage() {
     const navigate = useNavigate();
-    const { token } = useContext(UserContext);
     const { shoppingCartList } = useContext(ShoppingCartListContext);
-
-    const [result, setResult] = useState(null);
 
     useEffect(() => {
         if (shoppingCartList.length === 0) {
             alert("You have not selected any product. Redirecting...");
-            navigate("/user");
+            navigate("/user", { replace: true });
         }
     });
-
-    function confirmPurchase() {
-        const promise = axios.post(
-            "http://localhost:5000/shopping-cart/checkout",
-            {},
-            {
-                headers: { Authorization: `Bearer ${token}` }
-            }
-        );
-
-        promise.then(() => {
-            setResult(<SuccessModal />);
-        });
-        promise.catch((err) => {
-            setResult(<ErrorModal errorMessage={err.response.data} />);
-        });
-    }
 
     return (
         <>
@@ -49,9 +26,9 @@ export default function PurchasePage() {
                     <p onClick={() => navigate(-1)}>Return</p>
                 </div>
             </Header>
-            <Purchase>
-                <h2>Confirm your selection</h2>
-                <Row lg={1} className="row-col-1 px-5">
+            <Purchase className="px-5">
+                <h2>Confirm your order</h2>
+                <Row lg={1} className="row-col-1 py-3">
                     {shoppingCartList.map((item) => (
                         <Card key={item.product._id} className="my-2">
                             <Card.Img variant="start" src={item.product.imgURL} />
@@ -63,11 +40,8 @@ export default function PurchasePage() {
                         </Card>
                     ))}
                 </Row>
-                <Button variant="success" onClick={confirmPurchase}>
-                    Send order
-                </Button>
+                {<AddressForms />}
             </Purchase>
-            {result}
         </>
     );
 }
@@ -126,10 +100,10 @@ const Purchase = styled(Container)`
     .card {
         flex-direction: row;
         justify-content: space-between;
+        object-fit: contain;
 
         img {
-            height: 120px;
-            width: 200px;
+            height: 100%;
         }
     }
 
